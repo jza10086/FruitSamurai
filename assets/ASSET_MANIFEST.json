@@ -1,0 +1,280 @@
+{
+  "asset": "Kenney Food Kit 2.0",
+  "author": "Kenney",
+  "source": "https://kenney.nl/assets/food-kit",
+  "download": "https://kenney.nl/media/pages/assets/food-kit/83086fa91c-1719418518/kenney_food-kit.zip",
+  "license": "CC0-1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "retrieved_at": "2026-10-12",
+  "archive_sha256": "cdad90853682499b94c9fda2f87678b24bfd8f3264e0ed323f6b6a27fd7c6f6f",
+  "modifications": "None; selected files copied byte-for-byte from the original archive.",
+  "files": [
+    {
+      "file": "apple-half.glb",
+      "sha256": "3de1f55449761d8dd80444acfe0f941a179c10a69c8727086473b569787fd120",
+      "node_names": [
+        "apple-half"
+      ],
+      "mesh_count": 1,
+      "scene_aabb_min": [
+        -0.09814728051424026,
+        0.0,
+        -0.09814728051424026
+      ],
+      "scene_aabb_max": [
+        0.0,
+        0.19075341522693634,
+        0.09814728051424026
+      ],
+      "scene_size": [
+        0.09814728051424026,
+        0.19075341522693634,
+        0.19629456102848053
+      ],
+      "texture_dependencies": [
+        "Textures/colormap.png"
+      ]
+    },
+    {
+      "file": "apple.glb",
+      "sha256": "2a80ab65d5bc2cb4f2bca1e8176cbb591849a288596d4b2e76e411338761a526",
+      "node_names": [
+        "apple"
+      ],
+      "mesh_count": 1,
+      "scene_aabb_min": [
+        -0.09814728051424026,
+        0.0,
+        -0.09814728051424026
+      ],
+      "scene_aabb_max": [
+        0.09814728051424026,
+        0.19075341522693634,
+        0.09814728051424026
+      ],
+      "scene_size": [
+        0.19629456102848053,
+        0.19075341522693634,
+        0.19629456102848053
+      ],
+      "texture_dependencies": [
+        "Textures/colormap.png"
+      ]
+    },
+    {
+      "file": "banana.glb",
+      "sha256": "67c90aa8bef35b8886d6b67c0c4c3249556e28176c893d451b95cd83a156908c",
+      "node_names": [
+        "banana"
+      ],
+      "mesh_count": 1,
+      "scene_aabb_min": [
+        -0.06879999488592148,
+        0.0,
+        -0.3149356245994568
+      ],
+      "scene_aabb_max": [
+        0.06879999488592148,
+        0.19580039381980896,
+        0.3149356245994568
+      ],
+      "scene_size": [
+        0.13759998977184296,
+        0.19580039381980896,
+        0.6298712491989136
+      ],
+      "texture_dependencies": [
+        "Textures/colormap.png"
+      ]
+    },
+    {
+      "file": "lemon-half.glb",
+      "sha256": "9d4b8dac8b7c0abd5180ef14d74361d8e77d7678e28c4c442ec68b21c35fd207",
+      "node_names": [
+        "lemon-half"
+      ],
+      "mesh_count": 1,
+      "scene_aabb_min": [
+        -0.08660253882408142,
+        0.0,
+        -0.10000000149011612
+      ],
+      "scene_aabb_max": [
+        0.08660253882408142,
+        0.1119999960064888,
+        0.10000000149011612
+      ],
+      "scene_size": [
+        0.17320507764816284,
+        0.1119999960064888,
+        0.20000000298023224
+      ],
+      "texture_dependencies": [
+        "Textures/colormap.png"
+      ]
+    },
+    {
+      "file": "lemon.glb",
+      "sha256": "ed9e6234f54752c01e471ffe0167806431ed7d405983fff10804cd83c63209c0",
+      "node_names": [
+        "lemon"
+      ],
+      "mesh_count": 1,
+      "scene_aabb_min": [
+        -0.08660253882408142,
+        0.0,
+        -0.10000000149011612
+      ],
+      "scene_aabb_max": [
+        0.08660253882408142,
+        0.2239999920129776,
+        0.10000000149011612
+      ],
+      "scene_size": [
+        0.17320507764816284,
+        0.2239999920129776,
+        0.20000000298023224
+      ],
+      "texture_dependencies": [
+        "Textures/colormap.png"
+      ]
+    },
+    {
+      "file": "orange.glb",
+      "sha256": "a85c498e77fcab7da23386699d5af5cda1bcdf2c068b83b9db2fa2da48a06a30",
+      "node_names": [
+        "orange"
+      ],
+      "mesh_count": 1,
+      "scene_aabb_min": [
+        -0.08484599739313126,
+        0.0,
+        -0.08484599739313126
+      ],
+      "scene_aabb_max": [
+        0.08484599739313126,
+        0.1671999990940094,
+        0.08484599739313126
+      ],
+      "scene_size": [
+        0.1696919947862625,
+        0.1671999990940094,
+        0.1696919947862625
+      ],
+      "texture_dependencies": [
+        "Textures/colormap.png"
+      ]
+    },
+    {
+      "file": "pear-half.glb",
+      "sha256": "d119b3e586c664b3ed4e23dee6ce71ec24f461a9f388915ed14f9a952421cc73",
+      "node_names": [
+        "pear-half"
+      ],
+      "mesh_count": 1,
+      "scene_aabb_min": [
+        -0.09814728051424026,
+        0.0,
+        -0.09814728051424026
+      ],
+      "scene_aabb_max": [
+        0.0,
+        0.2707533836364746,
+        0.09814728051424026
+      ],
+      "scene_size": [
+        0.09814728051424026,
+        0.2707533836364746,
+        0.19629456102848053
+      ],
+      "texture_dependencies": [
+        "Textures/colormap.png"
+      ]
+    },
+    {
+      "file": "pear.glb",
+      "sha256": "436e8fdb9dc42100ab0135fc29e68f8609d5b3c5ac7d14062ed9aadfaef4d11f",
+      "node_names": [
+        "pear"
+      ],
+      "mesh_count": 1,
+      "scene_aabb_min": [
+        -0.09814728051424026,
+        0.0,
+        -0.09814728051424026
+      ],
+      "scene_aabb_max": [
+        0.09814728051424026,
+        0.2707533836364746,
+        0.09814728051424026
+      ],
+      "scene_size": [
+        0.19629456102848053,
+        0.2707533836364746,
+        0.19629456102848053
+      ],
+      "texture_dependencies": [
+        "Textures/colormap.png"
+      ]
+    },
+    {
+      "file": "pineapple.glb",
+      "sha256": "dfa3b656350273eeddb92fd6a8bf6b90b3bae63b3285880eb66c8835e9c86b91",
+      "node_names": [
+        "pineapple"
+      ],
+      "mesh_count": 1,
+      "scene_aabb_min": [
+        -0.12058230489492416,
+        0.0,
+        -0.1223817691206932
+      ],
+      "scene_aabb_max": [
+        0.12058230489492416,
+        0.4715912640094757,
+        0.1223817691206932
+      ],
+      "scene_size": [
+        0.24116460978984833,
+        0.4715912640094757,
+        0.2447635382413864
+      ],
+      "texture_dependencies": [
+        "Textures/colormap.png"
+      ]
+    },
+    {
+      "file": "watermelon.glb",
+      "sha256": "5992fa8ea001949b01a5e2b035693b885146c575f740e5c4505532c4e7e6f1ba",
+      "node_names": [
+        "slice",
+        "slice",
+        "slice",
+        "slice",
+        "slice",
+        "slice",
+        "slice",
+        "slice"
+      ],
+      "mesh_count": 8,
+      "scene_aabb_min": [
+        -0.22770000252044678,
+        9.02389263509778e-17,
+        -0.22770001742160798
+      ],
+      "scene_aabb_max": [
+        0.22770000252044678,
+        0.47609999775886536,
+        0.22770000252044678
+      ],
+      "scene_size": [
+        0.45540000504089356,
+        0.47609999775886525,
+        0.45540001994205476
+      ],
+      "texture_dependencies": [
+        "Textures/colormap.png"
+      ]
+    }
+  ]
+}
