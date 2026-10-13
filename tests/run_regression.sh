@@ -8,4 +8,8 @@ export HOME="$QA_HOME/home" XDG_CONFIG_HOME="$QA_HOME/config" XDG_DATA_HOME="$QA
 mkdir -p "$HOME" "$XDG_CONFIG_HOME" "$XDG_DATA_HOME" "$XDG_CACHE_HOME"
 "$GODOT" --headless --editor --path "$PROJECT_DIR" --import
 "$GODOT" --headless --path "$PROJECT_DIR" --script res://tests/regression.gd
+"$GODOT" --headless --path "$PROJECT_DIR" --script res://tests/hud_regression.gd
 "$GODOT" --headless --path "$PROJECT_DIR" --quit-after 120
+for STYLE in wenrexa5 mobile hypercasual original; do
+    "$GODOT" --headless --path "$PROJECT_DIR" --quit-after 120 -- --hud-style="$STYLE" --hud-preview
+done

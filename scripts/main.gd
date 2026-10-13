@@ -44,8 +44,15 @@ func _ready() -> void:
 	menu.get_node("ReducedMotion").toggled.connect(_set_reduced_motion)
 	hud.get_node("Pause").pressed.connect(pause_game)
 	_style_ui()
+	var hud_style := "original"
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--hud-style="):
+			hud_style = argument.trim_prefix("--hud-style=")
+	hud.configure(hud_style)
 	_create_decor()
 	_update_hud()
+	if "--hud-preview" in OS.get_cmdline_user_args():
+		call_deferred("_setup_hud_preview")
 
 func _style_ui() -> void:
 	for button in [menu.get_node("Play"), menu.get_node("Secondary"), hud.get_node("Pause")]:
@@ -86,6 +93,8 @@ func _set_reduced_motion(value: bool) -> void:
 	_save()
 
 func _save() -> void:
+	if "--hud-preview" in OS.get_cmdline_user_args():
+		return
 	var save := ConfigFile.new()
 	save.set_value("game", "best", best)
 	save.set_value("game", "reduced_motion", fx.reduced_motion)
@@ -167,13 +176,55 @@ func _show_menu(title: String, subtitle: String, button: String) -> void:
 	menu.show()
 
 func _update_hud() -> void:
-	hud.get_node("Score").text = "%03d" % score
-	hud.get_node("Best").text = "最佳  %d" % maxi(best, score)
-	var text := ""
-	for i in range(3):
-		text += ("×" if i < misses else "●") + "   "
-	hud.get_node("Lives").text = text
-	hud.get_node("Lives").modulate = Color("ff9a70") if misses > 0 else Color("e9cc87")
+	hud.update_values(score, best, misses)
+
+func _setup_hud_preview() -> void:
+	# Capture renders a 1920x1080 viewport even when the desktop caps window dimensions.
+	# HUD's authored 1600x900 coordinate system scales once; 3D and FX use viewport pixels.
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--hud-capture="):
+			var window := get_window()
+			window.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
+			window.content_scale_size = Vector2i(1920,1080)
+			$Canvas/UI.scale = Vector2(1.2,1.2)
+			await get_tree().process_frame
+	# Explicit, deterministic illustration for fair skin comparisons, not a recorded score.
+	start_game()
+	rng.seed = 1729
+	fx._rng.seed = 1729
+	score = 245
+	best = 980
+	misses = 1
+	_update_hud()
+	var positions := [Vector3(-4.8,-0.5,0), Vector3(-1.9,1.3,0), Vector3(1.6,-0.7,0), Vector3(4.7,0.8,0)]
+	for i in range(4):
+		var fruit := spawn_fruit(i, positions[i])
+		fruit.rotation = Vector3(0.24, -0.35, -0.22 + i * 0.19)
+	var source := spawn_fruit(2, Vector3(0.2,0.4,0))
+	_split(source, Vector2(0.8,-0.6))
+	fruits.remove_child(source)
+	source.queue_free()
+	for piece in fragments.get_children():
+		piece.step(0.12)
+	var at := camera.unproject_position(Vector3(0.2,0.4,0))
+	fx.burst(at, Color("ffdf5c"), Vector2(0.8,-0.6))
+	fx.show_combo(at + Vector2(12,-70), 3, 15)
+	fx._process(0.2)
+	for p in [Vector2(-105,74),Vector2(-54,42),Vector2(-5,10),Vector2(45,-22),Vector2(82,-54)]:
+		fx.add_blade_point(at + p)
+	fx.set_process(false)
+	set_process(false)
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--hud-capture="):
+			_capture_hud_preview(argument.trim_prefix("--hud-capture="))
+
+func _capture_hud_preview(path: String) -> void:
+	# A real rendered viewport; never available in the headless dummy renderer.
+	await get_tree().process_frame
+	await RenderingServer.frame_post_draw
+	var image := get_viewport().get_texture().get_image()
+	var result := image.save_png(path)
+	print("HUD_CAPTURE: ", path, " result=", result)
 
 func _process(delta: float) -> void:
 	var dt: float = minf(delta, 0.033)

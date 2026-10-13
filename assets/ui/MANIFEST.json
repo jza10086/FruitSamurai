@@ -1,0 +1,77 @@
+[
+  {
+    "file": "assets/ui/wenrexa5/score.png",
+    "original_archive_path": "free-ui5/Yellow/Bars1/Bar2.png",
+    "sha256": "7045b2d770d06ea57426bc2aaa1be567bb5f2eb70ccc1c4f587c1fc453881e7f"
+  },
+  {
+    "file": "assets/ui/wenrexa5/pause.png",
+    "original_archive_path": "free-ui5/Yellow/ButtonsBig [Normal]/Button22.png",
+    "sha256": "328b95b4db25c4f7558ede319c6967e35989a6018ed67fc913676cfdd02849aa"
+  },
+  {
+    "file": "assets/ui/wenrexa5/life.png",
+    "original_archive_path": "free-ui5/Yellow/ButtonsBig [Normal]/Button23.png",
+    "sha256": "f4d2580ea8562e60211561f9f56fe335107fa7855cbae38861132faa0cd17ba0"
+  },
+  {
+    "file": "assets/ui/wenrexa5/miss.png",
+    "original_archive_path": "free-ui5/Yellow/ButtonsBig [Normal]/Button2.png",
+    "sha256": "58e3755ba794795c2e822337f566cb9d61fa4484dc87a351fa576af70a2f031a"
+  },
+  {
+    "file": "assets/ui/mobile/score.png",
+    "original_archive_path": "uimobile/PNG/Msg11.png",
+    "sha256": "6f6fdc7feb329ce22d3818902e229cbabbe01cb7da2eec5e673b98bb37854347"
+  },
+  {
+    "file": "assets/ui/mobile/pause.png",
+    "original_archive_path": "uimobile/PNG/Icon13.png",
+    "sha256": "e647f5fb11c7b8a25aa3fac80f6515c365562daf095602ed01f90d5f259f9496"
+  },
+  {
+    "file": "assets/ui/mobile/life.png",
+    "original_archive_path": "uimobile/PNG/Icon34.png",
+    "sha256": "32ed14493ee34974d767e17f99beda4c2905a008f6526ae1d39c2e24d9c96e93"
+  },
+  {
+    "file": "assets/ui/mobile/miss.png",
+    "original_archive_path": "uimobile/PNG/Icon35.png",
+    "sha256": "64188bc182f39405564681d12411c7482e7bc4bee6462875158627c7dca48548"
+  },
+  {
+    "file": "assets/ui/hypercasual/score.png",
+    "original_archive_path": "hypercasual/blueRectNormal.png",
+    "sha256": "0d8d3f079e89057a688a710b0130a4a117308bc47a9aecdc2874166c57535e99"
+  },
+  {
+    "file": "assets/ui/hypercasual/best.png",
+    "original_archive_path": "hypercasual/yellowRectNormal.png",
+    "sha256": "3dbb5e63f1639da0650d53b2d239d12a63a02ac06e5a9ed11fb7d11a1e17aea5"
+  },
+  {
+    "file": "assets/ui/hypercasual/pause_bg.png",
+    "original_archive_path": "hypercasual/blueBtnNormal.png",
+    "sha256": "09a6f47ee56d62b0dda074609b0fa63954ea8f9b5cc404cf626872dbaae0523d"
+  },
+  {
+    "file": "assets/ui/hypercasual/pause.png",
+    "original_archive_path": "hypercasual/pauseBtn.png",
+    "sha256": "04944fc2e6858935a8a2a096272cb6611f5a96af3efaa7f619890b9121324627"
+  },
+  {
+    "file": "assets/ui/hypercasual/life.png",
+    "original_archive_path": "hypercasual/heartIcon.png",
+    "sha256": "4018cdc7e9afc7cfe8818abf146ca3b5ab9dff24b00e33dde1f40891e3f17d51"
+  },
+  {
+    "file": "assets/ui/hypercasual/miss.png",
+    "original_archive_path": "hypercasual/closeBtn.png",
+    "sha256": "91a7ae0ff5c7e2d6e76ebc83428f87114517583121205b72c7fc8fab1a33488c"
+  },
+  {
+    "file": "assets/ui/hypercasual/trophy.png",
+    "original_archive_path": "hypercasual/trophyIcon.png",
+    "sha256": "7398645952054002ab0b4bcb89bb95e0417e91d313b7e5a1db17e989352fdcf0"
+  }
+]

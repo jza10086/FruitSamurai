@@ -41,3 +41,13 @@ These are engine-driven scene/model/input-handler tests, not screenshot-based vi
 An independent desktop/cloud GUI playtest additionally verified real mouse-drag hits and score increases; visible apple/lemon halves and eight watermelon wedges; colored juice and the blade trail; three-miss game over; repeated Escape pause/resume; and pause-menu restart cleanup. The final palette was visually reviewed after fixing over-bright lighting, a too-strong wood pattern, and hard color-mask seams. Fruit now read as red apple, green pear, yellow lemon and striped green watermelon. The prototype remains stylized low-poly.
 
 Combo and bomb rules are covered by automated scene tests; they are not claimed as independently completed physical-input GUI cases. Real touchscreen hardware, exported mobile builds, and audible sound quality were not tested.
+
+## HUD variant update — 2026-10-13
+
+Godot 4.7.2: **69 original regression checks and 685 added HUD checks passed, 0 failures**. `tests/hud_regression.gd` verifies all four skins at 1600×900, 1280×720 and 1920×1080, nine-digit score fitting, all 0–3 miss states with real source textures, repeated skin replacement without orphaned decorations, control bounds, and only-Pause input interception. Events are routed through the actual viewport to verify mouse/touch pause, resume and restart; decorative textures allow swipes through.
+
+The full runner now imports, runs both suites, then smoke-tests the main scene and all four deterministic preview variants. The fixture cannot save its preset score to player progress. Screenshot fixtures are disclosed in `HUD_VARIANTS.md` and do not represent measured player performance. Headless input simulation does not replace actual touchscreen hardware testing.
+
+### HUD graphical review
+
+An independent cloud-desktop playtest verified the original skin with real mouse slicing (0 → 10), three-miss game over, pause/continue and Escape. All four skins were visually reviewed in native 1920×1080 Godot viewport captures with the same deterministic fixture. Visual review led to a smaller original paper scorecard, separated best-score line, stronger combo hierarchy, improved mobile number/caption spacing and corrected HyperCasual trophy layering. The other three skins share the tested gameplay and received automated viewport mouse/touch routing checks; they are not claimed as separately physically played. Actual touchscreen hardware remains untested.

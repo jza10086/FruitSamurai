@@ -51,7 +51,7 @@ This prototype uses **authored cut pieces, not arbitrary runtime mesh Boolean sl
 | `assets/Chinese.ttc` | [Noto CJK / Google](https://github.com/notofonts/noto-cjk) | SIL Open Font License 1.1 | Unmodified Chinese UI font from the existing project; notice in `third_party/Noto-LICENSE.txt`. |
 | `assets/Display.ttf` | [DejaVu Fonts](https://dejavu-fonts.github.io/), DejaVu Sans | Bitstream Vera / DejaVu license | Unmodified font, renamed for a portable display-font path. Full notice in `third_party/DejaVu-LICENSE.txt`. |
 | `assets/audio/*.wav` | Original procedural synthesis for this project | MIT, as project code | Slice noise sweep, harmonic combo chime, bomb rumble and missed-fruit tone; no sampled third-party recordings. |
-| Board shader, bomb meshes, blade, juice and UI | Original code for this project | MIT | Generated at runtime, no third-party images. |
+| Board shader, bomb meshes, blade, juice and original HUD skin | Original code for this project | MIT | Generated at runtime, no third-party images. |
 
 The original Kenney notice is in `third_party/LICENSE-Kenney.txt`. `assets/ASSET_SOURCES.md` contains detailed provenance, and `assets/ASSET_MANIFEST.json` records original sizes and SHA-256 hashes. CC0 allows commercial use and modification without attribution; credit is retained here for traceability.
 
@@ -64,3 +64,7 @@ godot --headless --path . --script tests/regression.gd
 ```
 
 See `QA.md` for the actual tested version, scenarios, and remaining limits. GUI checks and headless checks are different: headless logic tests cannot establish rendered visual quality or actual touch hardware behavior.
+
+## HUD comparison skins
+
+The in-game HUD has three real CC0 asset-pack treatments plus an original paper/ink/red-seal treatment. The main menu is unchanged. Run with `-- --hud-style=wenrexa5`, `mobile`, `hypercasual`, or `original` (default). See [HUD_VARIANTS.md](HUD_VARIANTS.md) for the exact source credits, unmodified source-file manifest, graphical capture command and deterministic demonstration-state disclosure.
