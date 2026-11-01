@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://jyixsdi3py2k"]
+
+[ext_resource type="Script" uid="uid://dcbov2tsfps3c" path="res://games/minigame/godot_party_default_fruit_samurai/game.gd" id="1_rd8kc"]
+
+[node name="Game" type="Node3D" unique_id=1427215291]
+script = ExtResource("1_rd8kc")

@@ -211,7 +211,7 @@ func _draw_blade() -> void:
 		draw_circle(tip.position, 2.5 * strength, Color(1.0, 1.0, 1.0, strength))
 
 func _draw_combos() -> void:
-	var font: Font = preload("res://assets/Chinese.ttc")
+	var font: Font = preload("res://games/minigame/godot_party_default_fruit_samurai/assets/Chinese.ttc")
 	for combo: ComboLabel in _combos:
 		var progress: float = clampf(combo.age / COMBO_LIFE, 0.0, 1.0)
 		var opacity: float = clampf((1.0 - progress) / 0.32, 0.0, 1.0)
@@ -220,7 +220,7 @@ func _draw_combos() -> void:
 		var lift: float = 8.0 if reduced_motion else 40.0
 		var origin: Vector2 = combo.position + Vector2(0.0, -32.0 - progress * lift)
 		var title: String = str(combo.count)
-		var suffix := "连斩"
+		var suffix: String = "连斩"
 		var bonus_text: String = "+%d" % combo.bonus
 		var title_size: int = 36
 		var number_width: float = font.get_string_size(title, HORIZONTAL_ALIGNMENT_LEFT, -1.0, title_size).x
@@ -230,7 +230,7 @@ func _draw_combos() -> void:
 		var bonus_position: Vector2 = origin + Vector2(-bonus_width * 0.5, 25.0)
 		draw_string_outline(font, title_position, title, HORIZONTAL_ALIGNMENT_LEFT, -1.0, title_size, 6, Color(0.02, 0.06, 0.10, opacity * 0.85))
 		draw_string(font, title_position, title, HORIZONTAL_ALIGNMENT_LEFT, -1.0, title_size, Color(1.0, 0.94, 0.65, opacity))
-		var suffix_position := title_position + Vector2(number_width + 8, -3)
+		var suffix_position: Variant = title_position + Vector2(number_width + 8, -3)
 		draw_string_outline(font, suffix_position, suffix, HORIZONTAL_ALIGNMENT_LEFT, -1.0, 19, 5, Color(0.02, 0.06, 0.10, opacity * 0.85))
 		draw_string(font, suffix_position, suffix, HORIZONTAL_ALIGNMENT_LEFT, -1.0, 19, Color(1.0, 0.94, 0.65, opacity))
 		draw_string_outline(font, bonus_position, bonus_text, HORIZONTAL_ALIGNMENT_LEFT, -1.0, 17, 5, Color(0.02, 0.06, 0.10, opacity * 0.8))

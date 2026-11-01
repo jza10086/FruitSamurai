@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://d21q26ska3k5w"
-path="res://.godot/imported/Chinese.ttc-654484ef344e3055e2dc230b38a21015.fontdata"
+uid="uid://ccetocgi46bnm"
+path="res://.godot/imported/Chinese.ttc-e9685dd0057f23a69276b0477f36fb96.fontdata"
 
 [deps]
 
-source_file="res://assets/Chinese.ttc"
-dest_files=["res://.godot/imported/Chinese.ttc-654484ef344e3055e2dc230b38a21015.fontdata"]
+source_file="res://games/minigame/godot_party_default_fruit_samurai/assets/Chinese.ttc"
+dest_files=["res://.godot/imported/Chinese.ttc-e9685dd0057f23a69276b0477f36fb96.fontdata"]
 
 [params]
 

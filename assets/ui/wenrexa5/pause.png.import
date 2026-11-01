@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vw0uhqoym2j1"
-path="res://.godot/imported/pause.png-5d957feae7427b9c2e2b3fa8c974e85b.ctex"
+uid="uid://ccaqa1c40fub4"
+path="res://.godot/imported/pause.png-13ad2c5ce1c4e71124e40ecece46f9ae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/wenrexa5/pause.png"
-dest_files=["res://.godot/imported/pause.png-5d957feae7427b9c2e2b3fa8c974e85b.ctex"]
+source_file="res://games/minigame/godot_party_default_fruit_samurai/assets/ui/wenrexa5/pause.png"
+dest_files=["res://.godot/imported/pause.png-13ad2c5ce1c4e71124e40ecece46f9ae.ctex"]
 
 [params]
 

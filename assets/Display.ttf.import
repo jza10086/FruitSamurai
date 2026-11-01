@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://chrdxt1nau8ll"
-path="res://.godot/imported/Display.ttf-01b5dd20a6b92db3e244f55e1a609733.fontdata"
+uid="uid://c3b353osaw24b"
+path="res://.godot/imported/Display.ttf-8cdab1849d7349365226e0952d81b379.fontdata"
 
 [deps]
 
-source_file="res://assets/Display.ttf"
-dest_files=["res://.godot/imported/Display.ttf-01b5dd20a6b92db3e244f55e1a609733.fontdata"]
+source_file="res://games/minigame/godot_party_default_fruit_samurai/assets/Display.ttf"
+dest_files=["res://.godot/imported/Display.ttf-8cdab1849d7349365226e0952d81b379.fontdata"]
 
 [params]
 

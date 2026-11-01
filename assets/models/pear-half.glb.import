@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://daf44h1ftmgpj"
-path="res://.godot/imported/pear-half.glb-dd0d6c6ac97a8b2981535ca1e0764ddb.scn"
+uid="uid://d4uagsmnbnn4"
+path="res://.godot/imported/pear-half.glb-806662123a50f9fd5e83423d0c7d4e8b.scn"
 
 [deps]
 
-source_file="res://assets/models/pear-half.glb"
-dest_files=["res://.godot/imported/pear-half.glb-dd0d6c6ac97a8b2981535ca1e0764ddb.scn"]
+source_file="res://games/minigame/godot_party_default_fruit_samurai/assets/models/pear-half.glb"
+dest_files=["res://.godot/imported/pear-half.glb-806662123a50f9fd5e83423d0c7d4e8b.scn"]
 
 [params]
 

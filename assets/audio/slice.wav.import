@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://yk000u3unsr3"
-path="res://.godot/imported/slice.wav-3d99f4ba1e1ea69b103a888b58d77cd7.sample"
+uid="uid://c8p6lepgnwmpr"
+path="res://.godot/imported/slice.wav-0d9a8571ae946f954387043ec9c756c8.sample"
 
 [deps]
 
-source_file="res://assets/audio/slice.wav"
-dest_files=["res://.godot/imported/slice.wav-3d99f4ba1e1ea69b103a888b58d77cd7.sample"]
+source_file="res://games/minigame/godot_party_default_fruit_samurai/assets/audio/slice.wav"
+dest_files=["res://.godot/imported/slice.wav-0d9a8571ae946f954387043ec9c756c8.sample"]
 
 [params]
 

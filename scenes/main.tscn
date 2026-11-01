@@ -1,11 +1,11 @@
 [gd_scene load_steps=11 format=3]
 
-[ext_resource type="Script" path="res://scripts/main.gd" id="1"]
-[ext_resource type="Script" path="res://scripts/slice_effects.gd" id="2"]
-[ext_resource type="FontFile" path="res://assets/Display.ttf" id="3"]
-[ext_resource type="Shader" path="res://scripts/board.gdshader" id="4"]
-[ext_resource type="FontFile" path="res://assets/Chinese.ttc" id="5"]
-[ext_resource type="Script" path="res://scripts/hud_skin.gd" id="6"]
+[ext_resource type="Script" path="res://games/minigame/godot_party_default_fruit_samurai/scripts/main.gd" id="1"]
+[ext_resource type="Script" path="res://games/minigame/godot_party_default_fruit_samurai/scripts/slice_effects.gd" id="2"]
+[ext_resource type="FontFile" path="res://games/minigame/godot_party_default_fruit_samurai/assets/Display.ttf" id="3"]
+[ext_resource type="Shader" path="res://games/minigame/godot_party_default_fruit_samurai/scripts/board.gdshader" id="4"]
+[ext_resource type="FontFile" path="res://games/minigame/godot_party_default_fruit_samurai/assets/Chinese.ttc" id="5"]
+[ext_resource type="Script" path="res://games/minigame/godot_party_default_fruit_samurai/scripts/hud_skin.gd" id="6"]
 [sub_resource type="ShaderMaterial" id="BoardMat"]
 shader = ExtResource("4")
 [sub_resource type="QuadMesh" id="BoardMesh"]

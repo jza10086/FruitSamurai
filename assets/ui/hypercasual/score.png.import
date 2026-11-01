@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0cqbe3ge3eui"
-path="res://.godot/imported/score.png-371504ae15849550783aa6e58a49dd43.ctex"
+uid="uid://bo7uq5dsjyg0f"
+path="res://.godot/imported/score.png-91321e74f6892342e0020e6351c9d941.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/hypercasual/score.png"
-dest_files=["res://.godot/imported/score.png-371504ae15849550783aa6e58a49dd43.ctex"]
+source_file="res://games/minigame/godot_party_default_fruit_samurai/assets/ui/hypercasual/score.png"
+dest_files=["res://.godot/imported/score.png-91321e74f6892342e0020e6351c9d941.ctex"]
 
 [params]
 

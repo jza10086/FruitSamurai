@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ef2ckjau4y45"
-path="res://.godot/imported/miss.png-13e7509bc5464a4a894273fbde0a1206.ctex"
+uid="uid://bw0lr7rjtly0m"
+path="res://.godot/imported/miss.png-202512051bbe8342697b954455e18c89.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/mobile/miss.png"
-dest_files=["res://.godot/imported/miss.png-13e7509bc5464a4a894273fbde0a1206.ctex"]
+source_file="res://games/minigame/godot_party_default_fruit_samurai/assets/ui/mobile/miss.png"
+dest_files=["res://.godot/imported/miss.png-202512051bbe8342697b954455e18c89.ctex"]
 
 [params]
 
