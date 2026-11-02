@@ -2,6 +2,8 @@ extends Node3D
 ## Local responsive simulation; host accepts bounded progress and publishes one result.
 const GAME: PackedScene = preload("res://games/minigame/godot_party_default_fruit_samurai/scenes/main.tscn")
 const IS_PLATFORM: bool = false
+const Pages = preload("res://games/protocols/godot_party_default_protocol/round_pages.gd")
+var pages: Pages
 var api: PartyAPI
 var request: Dictionary
 var players: Array[Dictionary] = []
@@ -71,9 +73,15 @@ func _ready() -> void:
 	summary.add_theme_font_size_override("font_size", 20)
 	column.add_child(summary)
 	round_label.text = "等待所有玩家准备完成"
-	api.mark_ready()
+	pages = Pages.new()
+	var ready_error: Error = pages.prepare(self, api, request, _start_gameplay)
+	if ready_error != OK:
+		api.fail("load_failed", error_string(ready_error))
 
 func party_start() -> void:
+	pages.transport_started()
+
+func _start_gameplay() -> void:
 	running = true
 	if game != null and not local_id.is_empty():
 		game.process_mode = Node.PROCESS_MODE_INHERIT
@@ -175,7 +183,7 @@ func _finish() -> void:
 				rank_value += 1
 		rows[index].rank = rank_value
 	var result: Dictionary = {"request_id": request.request_id, "reason": "completed", "rankings": rows, "columns": [{"key": "score", "title": "得分", "format": "integer"}, {"key": "time", "title": "用时", "format": "time"}]}
-	var error: Error = api.finish(result)
+	var error: Error = pages.present(result)
 	if error != OK:
 		api.fail("result_rejected", error_string(error))
 
