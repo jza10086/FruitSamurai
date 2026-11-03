@@ -1,0 +1,26 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: zh_Hans\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "GodotPartyDefault · 水果武士"
+msgstr "GodotPartyDefault · 水果武士"
+
+msgid "减弱动态效果"
+msgstr "减弱动态效果"
+
+msgid "切水果"
+msgstr "切水果"
+
+msgid "回合秒数"
+msgstr "回合秒数"
+
+msgid "按住切割键划过水果，连续切中可获得连击奖励。避开炸弹，各自挑战，按最终切果分数排名。"
+msgstr "按住切割键划过水果，连续切中可获得连击奖励。避开炸弹，各自挑战，按最终切果分数排名。"
+
+msgid "本机偏好"
+msgstr "本机偏好"
+
+msgid "游戏规则"
+msgstr "游戏规则"
