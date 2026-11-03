@@ -33,6 +33,7 @@ func party_setup(value: PartyAPI, config: Dictionary) -> void:
 	api.players_changed.connect(_players_changed)
 
 func _ready() -> void:
+	add_to_group(&"party_minimal_hud")
 	if api == null:
 		push_error("请从 GodotParty 大厅启动小游戏")
 		return
@@ -63,13 +64,35 @@ func _ready() -> void:
 	margin.add_theme_constant_override("margin_right", 12)
 	margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	canvas.add_child(margin)
+	var menu_hint: Label = Label.new()
+	canvas.add_child(menu_hint)
+	menu_hint.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+	menu_hint.offset_left = -220
+	menu_hint.offset_right = -28
+	menu_hint.offset_top = -60
+	menu_hint.offset_bottom = -28
+	menu_hint.text = "Esc：菜单"
+	menu_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	menu_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	menu_hint.add_theme_font_size_override("font_size", 22)
+	menu_hint.add_theme_color_override("font_outline_color", Color("102532"))
+	menu_hint.add_theme_constant_override("outline_size", 6)
 	var column: VBoxContainer = VBoxContainer.new()
 	column.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	margin.add_child(column)
 	round_label = Label.new()
 	round_label.add_theme_font_size_override("font_size", 24)
 	column.add_child(round_label)
+	var standings_toggle: Button = Button.new()
+	standings_toggle.text = "本轮排名"
+	standings_toggle.size_flags_horizontal = Control.SIZE_SHRINK_END
+	standings_toggle.pressed.connect(func() -> void: summary.visible = not summary.visible)
+	column.add_child(standings_toggle)
 	summary = Label.new()
+	summary.hide()
+	summary.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	summary.add_theme_color_override("font_outline_color", Color("102532"))
+	summary.add_theme_constant_override("outline_size", 6)
 	summary.add_theme_font_size_override("font_size", 20)
 	column.add_child(summary)
 	round_label.text = "等待所有玩家准备完成"
