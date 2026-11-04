@@ -24,3 +24,9 @@ msgstr "本机偏好"
 
 msgid "游戏规则"
 msgstr "游戏规则"
+
+msgid "hud.time"
+msgstr "水果武士 · 剩余 {time} 秒{spectator}"
+
+msgid "hud.player"
+msgstr "{player}  {score} 分  {state}"

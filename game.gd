@@ -1,6 +1,5 @@
 extends Node3D
 ## Local responsive simulation; host accepts bounded progress and publishes one result.
-const GAME: PackedScene = preload("res://games/minigame/godot_party_default_fruit_samurai/scenes/main.tscn")
 const IS_PLATFORM: bool = false
 const Pages = preload("res://games/protocols/godot_party_default_protocol/round_pages.gd")
 var pages: Pages
@@ -8,15 +7,17 @@ var api: PartyAPI
 var request: Dictionary
 var players: Array[Dictionary] = []
 var local_id: String = ""
-var game: Node3D
+@onready var game: Node3D = $Gameplay
 var running: bool = false
 var submitted: bool = false
 var elapsed: float = 0.0
 var deadline: float = 90.0
 var report_clock: float = 0.0
 var records: Dictionary = {}
-var summary: Label
-var round_label: Label
+const StandingRow: PackedScene = preload("res://games/protocols/godot_party_default_protocol/standing_row.tscn")
+var score_rows: Dictionary[String, Label] = {}
+@onready var summary: VBoxContainer = $ChallengeHUD/Status/Rankings
+@onready var round_label: Label = $ChallengeHUD/Status/RoundClock
 var sequence: int = 0
 
 func party_setup(value: PartyAPI, config: Dictionary) -> void:
@@ -33,15 +34,12 @@ func party_setup(value: PartyAPI, config: Dictionary) -> void:
 	api.players_changed.connect(_players_changed)
 
 func _ready() -> void:
-	add_to_group(&"party_minimal_hud")
 	if api == null:
 		push_error("请从 GodotParty 大厅启动小游戏")
 		return
 	if request.get("mode") != "standard":
 		api.fail("unsupported_request", "此小游戏仅支持 standard 普通局")
 		return
-	game = GAME.instantiate()
-	add_child(game)
 	game.process_mode = Node.PROCESS_MODE_DISABLED
 	if IS_PLATFORM:
 		game.party_input = api.input
@@ -53,48 +51,11 @@ func _ready() -> void:
 		game.menu.hide()
 		game.hud.get_node("Pause").hide()
 		game.fx.reduced_motion = bool(api.config.get_own(&"reduced_motion", false))
-	var canvas: CanvasLayer = CanvasLayer.new()
-	add_child(canvas)
-	var margin: MarginContainer = MarginContainer.new()
-	margin.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
-	margin.offset_left = -430
-	margin.offset_right = -30
-	margin.offset_top = 180
-	margin.add_theme_constant_override("margin_left", 12)
-	margin.add_theme_constant_override("margin_right", 12)
-	margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	canvas.add_child(margin)
-	var menu_hint: Label = Label.new()
-	canvas.add_child(menu_hint)
-	menu_hint.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
-	menu_hint.offset_left = -220
-	menu_hint.offset_right = -28
-	menu_hint.offset_top = -60
-	menu_hint.offset_bottom = -28
-	menu_hint.text = "Esc：菜单"
-	menu_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	menu_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	menu_hint.add_theme_font_size_override("font_size", 22)
-	menu_hint.add_theme_color_override("font_outline_color", Color("102532"))
-	menu_hint.add_theme_constant_override("outline_size", 6)
-	var column: VBoxContainer = VBoxContainer.new()
-	column.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	margin.add_child(column)
-	round_label = Label.new()
-	round_label.add_theme_font_size_override("font_size", 24)
-	column.add_child(round_label)
-	var standings_toggle: Button = Button.new()
-	standings_toggle.text = "本轮排名"
-	standings_toggle.size_flags_horizontal = Control.SIZE_SHRINK_END
-	standings_toggle.pressed.connect(func() -> void: summary.visible = not summary.visible)
-	column.add_child(standings_toggle)
-	summary = Label.new()
-	summary.hide()
-	summary.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	summary.add_theme_color_override("font_outline_color", Color("102532"))
-	summary.add_theme_constant_override("outline_size", 6)
-	summary.add_theme_font_size_override("font_size", 20)
-	column.add_child(summary)
+	for player: Dictionary in players:
+		var row: Label = StandingRow.instantiate()
+		summary.add_child(row)
+		score_rows[player.player_id] = row
+		row.text = player.name
 	round_label.text = "等待所有玩家准备完成"
 	pages = Pages.new()
 	var ready_error: Error = pages.prepare(self, api, request, _start_gameplay)
@@ -124,7 +85,7 @@ func _process(delta: float) -> void:
 	if not running:
 		return
 	elapsed += delta
-	round_label.text = "%s · 剩余 %d 秒%s" % ["云间跃行" if IS_PLATFORM else "水果武士", maxi(0, ceili(deadline - elapsed)), " · 观战中" if local_id.is_empty() else ""]
+	round_label.text = api.i18n.text(&"hud.time", {"time": maxi(0, ceili(deadline - elapsed)), "spectator": " · 观战中" if local_id.is_empty() else ""})
 	if game != null and not submitted and not local_id.is_empty():
 		var ended: bool = (game.won or game.lives <= 0) if IS_PLATFORM else game.state == game.State.OVER
 		if ended or elapsed >= deadline:
@@ -184,11 +145,11 @@ func _publish() -> void:
 		api.net.broadcast(&"standings", {"records": records.duplicate(true)})
 
 func _show_standings(value: Dictionary) -> void:
-	var lines: PackedStringArray = []
 	for player: Dictionary in players:
 		var row: Dictionary = value.get("records", {}).get(player.player_id, {})
-		lines.append("%s  %d 分  %s" % [player.name, row.get("score", 0), "已退出" if row.get("withdrawn", false) else ("已完成" if row.get("done", false) else "挑战中")])
-	summary.text = "\n".join(lines)
+		var caption: String = api.i18n.text(&"hud.player", {"player": player.name, "score": row.get("score", 0), "state": "已退出" if row.get("withdrawn", false) else ("已完成" if row.get("done", false) else "挑战中")})
+		if score_rows[player.player_id].text != caption:
+			score_rows[player.player_id].text = caption
 
 func _finish() -> void:
 	running = false
