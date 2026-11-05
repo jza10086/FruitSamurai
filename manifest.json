@@ -8,6 +8,7 @@
   "introduction": "按住切割键划过水果，连续切中可获得连击奖励。避开炸弹，各自挑战，按最终切果分数排名。",
   "entry": "game.tscn",
   "player_counts": [
+    1,
     2,
     3,
     4,
