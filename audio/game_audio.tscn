@@ -1,0 +1,34 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://games/protocols/godot_party_default_protocol/audio/game_audio.gd" id="script"]
+
+[node name="GameAudio" type="Node"]
+script = ExtResource("script")
+
+[node name="MusicA" type="AudioStreamPlayer" parent="."]
+
+[node name="MusicB" type="AudioStreamPlayer" parent="."]
+
+[node name="Dialogue" type="AudioStreamPlayer" parent="."]
+
+[node name="Effects" type="Node" parent="."]
+
+[node name="Voice1" type="AudioStreamPlayer" parent="Effects"]
+
+[node name="Voice2" type="AudioStreamPlayer" parent="Effects"]
+
+[node name="Voice3" type="AudioStreamPlayer" parent="Effects"]
+
+[node name="Voice4" type="AudioStreamPlayer" parent="Effects"]
+
+[node name="Voice5" type="AudioStreamPlayer" parent="Effects"]
+
+[node name="Voice6" type="AudioStreamPlayer" parent="Effects"]
+
+[node name="Voice7" type="AudioStreamPlayer" parent="Effects"]
+
+[node name="Voice8" type="AudioStreamPlayer" parent="Effects"]
+
+[node name="Ambience" type="Node" parent="."]
+
+[node name="UI" type="Node" parent="."]

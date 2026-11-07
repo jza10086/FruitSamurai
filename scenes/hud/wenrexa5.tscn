@@ -1,0 +1,219 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://games/minigame/godot_party_default_fruit_samurai/scripts/hud_skin.gd" id="hud_script"]
+
+[ext_resource type="FontFile" path="res://games/minigame/godot_party_default_fruit_samurai/assets/Chinese.ttc" id="1_0todu"]
+[ext_resource type="Texture2D" path="res://games/minigame/godot_party_default_fruit_samurai/assets/ui/wenrexa5/score.png" id="2_wjjg2"]
+[ext_resource type="Texture2D" path="res://games/minigame/godot_party_default_fruit_samurai/assets/ui/wenrexa5/pause.png" id="3_dc7qb"]
+[ext_resource type="Texture2D" path="res://games/minigame/godot_party_default_fruit_samurai/assets/ui/wenrexa5/life.png" id="4_8kq21"]
+[ext_resource type="Texture2D" path="res://games/minigame/godot_party_default_fruit_samurai/assets/ui/wenrexa5/miss.png" id="5_h27bh"]
+
+[sub_resource type="Theme" id="Theme"]
+default_font = ExtResource("1_0todu")
+default_font_size = 22
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d7uor"]
+texture = ExtResource("3_dc7qb")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jn8lr"]
+texture = ExtResource("3_dc7qb")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(0.7137255, 0.79607844, 0.83137256, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o5cy2"]
+texture = ExtResource("3_dc7qb")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(1, 0.9529412, 0.8235294, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5evhh"]
+texture = ExtResource("3_dc7qb")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(1, 0.9529412, 0.8235294, 1)
+
+[node name="HUD" type="Control" unique_id=1416152902]
+script = ExtResource("hud_script")
+score_font_size = 48
+pause_symbol = "Ⅱ"
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = SubResource("Theme")
+
+[node name="Decorations" type="Control" parent="." unique_id=292833187]
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="Art1" type="NinePatchRect" parent="Decorations" unique_id=1274435744]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 27.0
+offset_right = 513.0
+offset_bottom = 135.0
+texture = ExtResource("2_wjjg2")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="MissCaption" type="Label" parent="Decorations" unique_id=598407723]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1207.0
+offset_top = 38.0
+offset_right = 1367.0
+offset_bottom = 63.0
+theme_override_colors/font_color = Color(0.90588236, 0.80784315, 0.65882355, 1)
+theme_override_font_sizes/font_size = 17
+text = "漏果"
+
+[node name="Line3" type="Line2D" parent="Decorations" unique_id=1744225792]
+points = PackedVector2Array(278, 55, 278, 112)
+width = 1.0
+default_color = Color(0.81960785, 0.64705884, 0.42352942, 0.5019608)
+antialiased = true
+
+[node name="ScoreCaption" type="Label" parent="." unique_id=1219824855]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 66.0
+offset_top = 36.0
+offset_right = 156.0
+offset_bottom = 64.0
+theme_override_colors/font_color = Color(0.90588236, 0.80784315, 0.65882355, 1)
+theme_override_font_sizes/font_size = 18
+text = "得分"
+vertical_alignment = 1
+clip_text = true
+
+[node name="Score" type="Label" parent="." unique_id=2111241959]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 62.0
+offset_top = 55.0
+offset_right = 284.0
+offset_bottom = 122.0
+theme_override_colors/font_color = Color(1, 0.95686275, 0.8627451, 1)
+theme_override_font_sizes/font_size = 48
+text = "000"
+vertical_alignment = 1
+clip_text = true
+
+[node name="Best" type="Label" parent="." unique_id=605276158]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 286.0
+offset_top = 81.0
+offset_right = 502.0
+offset_bottom = 111.0
+theme_override_colors/font_color = Color(0.90588236, 0.80784315, 0.65882355, 1)
+theme_override_font_sizes/font_size = 19
+text = "最高  0"
+vertical_alignment = 1
+clip_text = true
+
+[node name="Pause" type="Button" parent="." unique_id=1878272641]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1440.0
+offset_top = 40.0
+offset_right = 1544.0
+offset_bottom = 112.0
+tooltip_text = "暂停"
+theme_override_colors/font_color = Color(1, 0.95686275, 0.8627451, 1)
+theme_override_colors/font_focus_color = Color(1, 0.95686275, 0.8627451, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.95686275, 0.8627451, 1)
+theme_override_colors/font_hover_color = Color(1, 0.95686275, 0.8627451, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_d7uor")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jn8lr")
+theme_override_styles/hover = SubResource("StyleBoxTexture_o5cy2")
+theme_override_styles/focus = SubResource("StyleBoxTexture_5evhh")
+text = "Ⅱ"
+
+[node name="LifeMarks" type="Control" parent="." unique_id=1484115331]
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="Available0" type="TextureRect" parent="LifeMarks" unique_id=1890291048]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1201.0
+offset_top = 72.0
+offset_right = 1239.0
+offset_bottom = 110.0
+mouse_filter = 2
+texture = ExtResource("4_8kq21")
+expand_mode = 1
+
+[node name="Missing0" type="TextureRect" parent="LifeMarks" unique_id=530834478]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 1201.0
+offset_top = 72.0
+offset_right = 1239.0
+offset_bottom = 110.0
+mouse_filter = 2
+texture = ExtResource("5_h27bh")
+expand_mode = 1
+
+[node name="Available1" type="TextureRect" parent="LifeMarks" unique_id=1029461026]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1253.0
+offset_top = 72.0
+offset_right = 1291.0
+offset_bottom = 110.0
+mouse_filter = 2
+texture = ExtResource("4_8kq21")
+expand_mode = 1
+
+[node name="Missing1" type="TextureRect" parent="LifeMarks" unique_id=243775061]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 1253.0
+offset_top = 72.0
+offset_right = 1291.0
+offset_bottom = 110.0
+mouse_filter = 2
+texture = ExtResource("5_h27bh")
+expand_mode = 1
+
+[node name="Available2" type="TextureRect" parent="LifeMarks" unique_id=842752464]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1305.0
+offset_top = 72.0
+offset_right = 1343.0
+offset_bottom = 110.0
+mouse_filter = 2
+texture = ExtResource("4_8kq21")
+expand_mode = 1
+
+[node name="Missing2" type="TextureRect" parent="LifeMarks" unique_id=726578139]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 1305.0
+offset_top = 72.0
+offset_right = 1343.0
+offset_bottom = 110.0
+mouse_filter = 2
+texture = ExtResource("5_h27bh")
+expand_mode = 1

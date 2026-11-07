@@ -1,0 +1,387 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://games/minigame/godot_party_default_fruit_samurai/scripts/hud_skin.gd" id="hud_script"]
+
+[ext_resource type="FontFile" path="res://games/minigame/godot_party_default_fruit_samurai/assets/Chinese.ttc" id="1_in5tj"]
+
+[sub_resource type="Theme" id="Theme"]
+default_font = ExtResource("1_in5tj")
+default_font_size = 22
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhxfi"]
+bg_color = Color(0.5176471, 0.23529412, 0.19607843, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8745098, 0.70980394, 0.40784314, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pmmko"]
+bg_color = Color(0.6509804, 0.31764707, 0.25882354, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8745098, 0.70980394, 0.40784314, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_het40"]
+bg_color = Color(0.6509804, 0.31764707, 0.25882354, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8745098, 0.70980394, 0.40784314, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lmo0f"]
+bg_color = Color(0.6509804, 0.31764707, 0.25882354, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8745098, 0.70980394, 0.40784314, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="HUD" type="Control" unique_id=288365751]
+script = ExtResource("hud_script")
+score_font_size = 48
+show_pause_caption = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = SubResource("Theme")
+
+[node name="Decorations" type="Control" parent="." unique_id=107152264]
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="MissCaption" type="Label" parent="Decorations" unique_id=448713035]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1207.0
+offset_top = 38.0
+offset_right = 1367.0
+offset_bottom = 63.0
+theme_override_colors/font_color = Color(0.7882353, 0.70980394, 0.5529412, 1)
+theme_override_font_sizes/font_size = 17
+text = "漏果"
+
+[node name="Polygon2" type="Polygon2D" parent="Decorations" unique_id=800195112]
+color = Color(0.9137255, 0.8509804, 0.7137255, 0.9607843)
+polygon = PackedVector2Array(39, 27, 243, 29, 258, 40, 250, 126, 159, 130, 37, 126, 31, 72)
+
+[node name="Line3" type="Line2D" parent="Decorations" unique_id=51851601]
+points = PackedVector2Array(48, 28, 242, 30)
+width = 1.5
+default_color = Color(0.81960785, 0.6745098, 0.39215687, 1)
+antialiased = true
+
+[node name="Line4" type="Line2D" parent="Decorations" unique_id=2096239028]
+points = PackedVector2Array(47, 126, 244, 125)
+width = 2.0
+default_color = Color(0.73333335, 0.6313726, 0.42745098, 1)
+antialiased = true
+
+[node name="Line5" type="Line2D" parent="Decorations" unique_id=139001613]
+points = PackedVector2Array(32, 37, 28, 119)
+width = 2.0
+default_color = Color(0.16, 0.13, 0.1, 0.17)
+antialiased = true
+
+[node name="Line6" type="Line2D" parent="Decorations" unique_id=1902302005]
+points = PackedVector2Array(34, 37, 30, 119)
+width = 2.0
+default_color = Color(0.16, 0.13, 0.1, 0.17)
+antialiased = true
+
+[node name="Line7" type="Line2D" parent="Decorations" unique_id=1342794050]
+points = PackedVector2Array(36, 37, 32, 119)
+width = 2.0
+default_color = Color(0.16, 0.13, 0.1, 0.17)
+antialiased = true
+
+[node name="Line8" type="Line2D" parent="Decorations" unique_id=610945379]
+points = PackedVector2Array(38, 37, 34, 119)
+width = 2.0
+default_color = Color(0.16, 0.13, 0.1, 0.17)
+antialiased = true
+
+[node name="Line9" type="Line2D" parent="Decorations" unique_id=1644519543]
+points = PackedVector2Array(40, 37, 36, 119)
+width = 2.0
+default_color = Color(0.16, 0.13, 0.1, 0.17)
+antialiased = true
+
+[node name="Line10" type="Line2D" parent="Decorations" unique_id=2062735544]
+points = PackedVector2Array(42, 37, 38, 119)
+width = 2.0
+default_color = Color(0.16, 0.13, 0.1, 0.17)
+antialiased = true
+
+[node name="Line11" type="Line2D" parent="Decorations" unique_id=864145117]
+points = PackedVector2Array(42, 43, 65, 42)
+width = 1.0
+default_color = Color(0.5, 0.36, 0.17, 0.07)
+antialiased = true
+
+[node name="Line12" type="Line2D" parent="Decorations" unique_id=1350267577]
+points = PackedVector2Array(63, 62, 85, 61)
+width = 1.0
+default_color = Color(0.5, 0.36, 0.17, 0.07)
+antialiased = true
+
+[node name="Line13" type="Line2D" parent="Decorations" unique_id=851600218]
+points = PackedVector2Array(84, 81, 105, 80)
+width = 1.0
+default_color = Color(0.5, 0.36, 0.17, 0.07)
+antialiased = true
+
+[node name="Line14" type="Line2D" parent="Decorations" unique_id=1686479106]
+points = PackedVector2Array(105, 43, 125, 42)
+width = 1.0
+default_color = Color(0.5, 0.36, 0.17, 0.07)
+antialiased = true
+
+[node name="Line15" type="Line2D" parent="Decorations" unique_id=1692019104]
+points = PackedVector2Array(126, 62, 145, 61)
+width = 1.0
+default_color = Color(0.5, 0.36, 0.17, 0.07)
+antialiased = true
+
+[node name="Line16" type="Line2D" parent="Decorations" unique_id=408713033]
+points = PackedVector2Array(147, 81, 165, 80)
+width = 1.0
+default_color = Color(0.5, 0.36, 0.17, 0.07)
+antialiased = true
+
+[node name="Line17" type="Line2D" parent="Decorations" unique_id=1246431499]
+points = PackedVector2Array(168, 43, 185, 42)
+width = 1.0
+default_color = Color(0.5, 0.36, 0.17, 0.07)
+antialiased = true
+
+[node name="Line18" type="Line2D" parent="Decorations" unique_id=641214923]
+points = PackedVector2Array(189, 62, 205, 61)
+width = 1.0
+default_color = Color(0.5, 0.36, 0.17, 0.07)
+antialiased = true
+
+[node name="Polygon19" type="Polygon2D" parent="Decorations" unique_id=1226245586]
+color = Color(0.5921569, 0.24705882, 0.21176471, 1)
+polygon = PackedVector2Array(198, 40, 228, 40, 228, 67, 198, 67)
+
+[node name="Seal" type="Label" parent="Decorations" unique_id=1863370879]
+layout_mode = 0
+offset_left = 204.0
+offset_top = 39.0
+offset_right = 204.0
+offset_bottom = 39.0
+theme_override_colors/font_color = Color(0.9529412, 0.8666667, 0.6784314, 1)
+theme_override_font_sizes/font_size = 18
+text = "斩"
+
+[node name="Line21" type="Line2D" parent="Decorations" unique_id=1524315502]
+points = PackedVector2Array(1188, 35, 1188, 109)
+width = 1.0
+default_color = Color(0.5176471, 0.42352942, 0.27058825, 1)
+antialiased = true
+
+[node name="ScoreCaption" type="Label" parent="." unique_id=1331474720]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 56.0
+offset_top = 35.0
+offset_right = 164.0
+offset_bottom = 62.0
+theme_override_colors/font_color = Color(0.3647059, 0.29411766, 0.19215687, 1)
+theme_override_font_sizes/font_size = 17
+text = "得分"
+vertical_alignment = 1
+clip_text = true
+
+[node name="Score" type="Label" parent="." unique_id=375300951]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 53.0
+offset_top = 58.0
+offset_right = 243.0
+offset_bottom = 125.0
+theme_override_colors/font_color = Color(0.19215687, 0.1764706, 0.15294118, 1)
+theme_override_font_sizes/font_size = 48
+text = "000"
+vertical_alignment = 1
+clip_text = true
+
+[node name="Best" type="Label" parent="." unique_id=1260004521]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 49.0
+offset_top = 138.0
+offset_right = 279.0
+offset_bottom = 167.0
+theme_override_colors/font_color = Color(0.8235294, 0.7411765, 0.5803922, 1)
+theme_override_font_sizes/font_size = 17
+text = "最高  0"
+vertical_alignment = 1
+clip_text = true
+
+[node name="Pause" type="Button" parent="." unique_id=1343644343]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1440.0
+offset_top = 40.0
+offset_right = 1544.0
+offset_bottom = 112.0
+theme_override_colors/font_color = Color(0.9607843, 0.9137255, 0.7882353, 1)
+theme_override_colors/font_focus_color = Color(0.9607843, 0.9137255, 0.7882353, 1)
+theme_override_colors/font_pressed_color = Color(0.9607843, 0.9137255, 0.7882353, 1)
+theme_override_colors/font_hover_color = Color(0.9607843, 0.9137255, 0.7882353, 1)
+theme_override_font_sizes/font_size = 19
+theme_override_styles/normal = SubResource("StyleBoxFlat_rhxfi")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pmmko")
+theme_override_styles/hover = SubResource("StyleBoxFlat_het40")
+theme_override_styles/focus = SubResource("StyleBoxFlat_lmo0f")
+text = "暂停"
+
+[node name="LifeMarks" type="Control" parent="." unique_id=884655504]
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="Available0" type="Node2D" parent="LifeMarks" unique_id=237662186]
+unique_name_in_owner = true
+position = Vector2(1220, 91)
+
+[node name="Polygon1" type="Polygon2D" parent="LifeMarks/Available0" unique_id=791711632]
+color = Color(0.6862745, 0.54901963, 0.29803923, 1)
+polygon = PackedVector2Array(0, -11, 11, 0, 0, 11, -11, 0)
+
+[node name="Line2" type="Line2D" parent="LifeMarks/Available0" unique_id=774559970]
+points = PackedVector2Array(0, -11, 11, 0, 0, 11, -11, 0, 0, -11)
+width = 1.5
+default_color = Color(0.8745098, 0.70980394, 0.40784314, 1)
+antialiased = true
+
+[node name="Missing0" type="Node2D" parent="LifeMarks" unique_id=1447062502]
+unique_name_in_owner = true
+visible = false
+position = Vector2(1220, 91)
+
+[node name="Polygon1" type="Polygon2D" parent="LifeMarks/Missing0" unique_id=472499175]
+color = Color(0.28627452, 0.23137255, 0.17254902, 1)
+polygon = PackedVector2Array(0, -11, 11, 0, 0, 11, -11, 0)
+
+[node name="Line2" type="Line2D" parent="LifeMarks/Missing0" unique_id=1706965601]
+points = PackedVector2Array(0, -11, 11, 0, 0, 11, -11, 0, 0, -11)
+width = 1.5
+default_color = Color(0.92941177, 0.45490196, 0.40784314, 1)
+antialiased = true
+
+[node name="Line3" type="Line2D" parent="LifeMarks/Missing0" unique_id=436244300]
+points = PackedVector2Array(-6, -6, 6, 6)
+width = 2.5
+default_color = Color(0.92941177, 0.45490196, 0.40784314, 1)
+antialiased = true
+
+[node name="Line4" type="Line2D" parent="LifeMarks/Missing0" unique_id=290847416]
+points = PackedVector2Array(-6, 6, 6, -6)
+width = 2.5
+default_color = Color(0.92941177, 0.45490196, 0.40784314, 1)
+antialiased = true
+
+[node name="Available1" type="Node2D" parent="LifeMarks" unique_id=180764172]
+unique_name_in_owner = true
+position = Vector2(1272, 91)
+
+[node name="Polygon1" type="Polygon2D" parent="LifeMarks/Available1" unique_id=924995571]
+color = Color(0.6862745, 0.54901963, 0.29803923, 1)
+polygon = PackedVector2Array(0, -11, 11, 0, 0, 11, -11, 0)
+
+[node name="Line2" type="Line2D" parent="LifeMarks/Available1" unique_id=1244370305]
+points = PackedVector2Array(0, -11, 11, 0, 0, 11, -11, 0, 0, -11)
+width = 1.5
+default_color = Color(0.8745098, 0.70980394, 0.40784314, 1)
+antialiased = true
+
+[node name="Missing1" type="Node2D" parent="LifeMarks" unique_id=987150276]
+unique_name_in_owner = true
+visible = false
+position = Vector2(1272, 91)
+
+[node name="Polygon1" type="Polygon2D" parent="LifeMarks/Missing1" unique_id=1352323168]
+color = Color(0.28627452, 0.23137255, 0.17254902, 1)
+polygon = PackedVector2Array(0, -11, 11, 0, 0, 11, -11, 0)
+
+[node name="Line2" type="Line2D" parent="LifeMarks/Missing1" unique_id=1830069445]
+points = PackedVector2Array(0, -11, 11, 0, 0, 11, -11, 0, 0, -11)
+width = 1.5
+default_color = Color(0.92941177, 0.45490196, 0.40784314, 1)
+antialiased = true
+
+[node name="Line3" type="Line2D" parent="LifeMarks/Missing1" unique_id=819439070]
+points = PackedVector2Array(-6, -6, 6, 6)
+width = 2.5
+default_color = Color(0.92941177, 0.45490196, 0.40784314, 1)
+antialiased = true
+
+[node name="Line4" type="Line2D" parent="LifeMarks/Missing1" unique_id=1912467302]
+points = PackedVector2Array(-6, 6, 6, -6)
+width = 2.5
+default_color = Color(0.92941177, 0.45490196, 0.40784314, 1)
+antialiased = true
+
+[node name="Available2" type="Node2D" parent="LifeMarks" unique_id=169031196]
+unique_name_in_owner = true
+position = Vector2(1324, 91)
+
+[node name="Polygon1" type="Polygon2D" parent="LifeMarks/Available2" unique_id=1820094987]
+color = Color(0.6862745, 0.54901963, 0.29803923, 1)
+polygon = PackedVector2Array(0, -11, 11, 0, 0, 11, -11, 0)
+
+[node name="Line2" type="Line2D" parent="LifeMarks/Available2" unique_id=2134693663]
+points = PackedVector2Array(0, -11, 11, 0, 0, 11, -11, 0, 0, -11)
+width = 1.5
+default_color = Color(0.8745098, 0.70980394, 0.40784314, 1)
+antialiased = true
+
+[node name="Missing2" type="Node2D" parent="LifeMarks" unique_id=508800781]
+unique_name_in_owner = true
+visible = false
+position = Vector2(1324, 91)
+
+[node name="Polygon1" type="Polygon2D" parent="LifeMarks/Missing2" unique_id=412064097]
+color = Color(0.28627452, 0.23137255, 0.17254902, 1)
+polygon = PackedVector2Array(0, -11, 11, 0, 0, 11, -11, 0)
+
+[node name="Line2" type="Line2D" parent="LifeMarks/Missing2" unique_id=1239672281]
+points = PackedVector2Array(0, -11, 11, 0, 0, 11, -11, 0, 0, -11)
+width = 1.5
+default_color = Color(0.92941177, 0.45490196, 0.40784314, 1)
+antialiased = true
+
+[node name="Line3" type="Line2D" parent="LifeMarks/Missing2" unique_id=478036094]
+points = PackedVector2Array(-6, -6, 6, 6)
+width = 2.5
+default_color = Color(0.92941177, 0.45490196, 0.40784314, 1)
+antialiased = true
+
+[node name="Line4" type="Line2D" parent="LifeMarks/Missing2" unique_id=1275290359]
+points = PackedVector2Array(-6, 6, 6, -6)
+width = 2.5
+default_color = Color(0.92941177, 0.45490196, 0.40784314, 1)
+antialiased = true

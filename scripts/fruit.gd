@@ -9,10 +9,10 @@ var decorative: bool = false
 var age: float = 0.0
 var radius: float = 0.62
 var visual: Node3D
-const NAMES: Array = ["apple", "pear", "lemon", "watermelon"]
-const HEIGHTS: Array = [0.190753, 0.270753, 0.224, 0.4761]
-const SIZES: Array = [0.196295, 0.270753, 0.224, 0.4761]
-const COLORS: Array = [Color("ef604f"), Color("b8d967"), Color("ffdf5c"), Color("fb6680")]
+const NAMES: Array[String] = ["apple", "pear", "lemon", "watermelon"]
+const HEIGHTS: Array[float] = [0.190753, 0.270753, 0.224, 0.4761]
+const SIZES: Array[float] = [0.196295, 0.270753, 0.224, 0.4761]
+const COLORS: Array[Color] = [Color("ef604f"), Color("b8d967"), Color("ffdf5c"), Color("fb6680")]
 
 func setup(type: int, half: bool = false, second: bool = false) -> void:
 	kind = type
@@ -82,6 +82,6 @@ func _apply_palette(node: Node3D, accumulated: Transform3D) -> void:
 		material.set_shader_parameter("fruit_kind", kind)
 		material.set_shader_parameter("model_from_mesh", local_transform)
 		node.material_override = material
-	for child: Variant in node.get_children():
+	for child: Node in node.get_children():
 		if child is Node3D:
 			_apply_palette(child, local_transform)

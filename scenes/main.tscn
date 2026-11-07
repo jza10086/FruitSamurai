@@ -1,11 +1,19 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene format=3]
 
 [ext_resource type="Script" path="res://games/minigame/godot_party_default_fruit_samurai/scripts/main.gd" id="1"]
 [ext_resource type="Script" path="res://games/minigame/godot_party_default_fruit_samurai/scripts/slice_effects.gd" id="2"]
 [ext_resource type="FontFile" path="res://games/minigame/godot_party_default_fruit_samurai/assets/Display.ttf" id="3"]
 [ext_resource type="Shader" path="res://games/minigame/godot_party_default_fruit_samurai/scripts/board.gdshader" id="4"]
 [ext_resource type="FontFile" path="res://games/minigame/godot_party_default_fruit_samurai/assets/Chinese.ttc" id="5"]
-[ext_resource type="Script" path="res://games/minigame/godot_party_default_fruit_samurai/scripts/hud_skin.gd" id="6"]
+[ext_resource type="PackedScene" path="res://games/minigame/godot_party_default_fruit_samurai/scenes/hud/original.tscn" id="hud"]
+[ext_resource type="PackedScene" path="res://games/minigame/godot_party_default_fruit_samurai/scenes/menu.tscn" id="menu"]
+[ext_resource type="PackedScene" path="res://games/minigame/godot_party_default_fruit_samurai/scenes/decor.tscn" id="decor"]
+[ext_resource type="PackedScene" path="res://games/minigame/godot_party_default_fruit_samurai/audio/game_audio.tscn" id="audio"]
+[ext_resource type="Resource" path="res://games/minigame/godot_party_default_fruit_samurai/audio/slice.tres" id="slice"]
+[ext_resource type="Resource" path="res://games/minigame/godot_party_default_fruit_samurai/audio/miss.tres" id="miss"]
+[ext_resource type="Resource" path="res://games/minigame/godot_party_default_fruit_samurai/audio/bomb.tres" id="bomb"]
+[ext_resource type="Resource" path="res://games/minigame/godot_party_default_fruit_samurai/audio/combo.tres" id="combo"]
+
 [sub_resource type="ShaderMaterial" id="BoardMat"]
 shader = ExtResource("4")
 [sub_resource type="QuadMesh" id="BoardMesh"]
@@ -21,9 +29,24 @@ tonemap_mode = 2
 default_font = ExtResource("5")
 default_font_size = 22
 
-[node name="FruitSamurai" type="Node3D"]
+[node name="FruitSamurai" type="Node3D" node_paths=PackedStringArray("hud", "audio", "menu", "menu_play", "reduced_motion_button", "title_label", "subtitle_label", "eyebrow", "instructions", "version_label")]
 script = ExtResource("1")
+hud = NodePath("Canvas/UI/HUD")
+audio = NodePath("GameAudio")
+menu = NodePath("Canvas/UI/Menu")
+menu_play = NodePath("Canvas/UI/Menu/Play")
+reduced_motion_button = NodePath("Canvas/UI/Menu/ReducedMotion")
+title_label = NodePath("Canvas/UI/Menu/Title")
+subtitle_label = NodePath("Canvas/UI/Menu/Subtitle")
+eyebrow = NodePath("Canvas/UI/Menu/Eyebrow")
+instructions = NodePath("Canvas/UI/Menu/Instructions")
+version_label = NodePath("Canvas/UI/Menu/Version")
+slice_sound = ExtResource("slice")
+miss_sound = ExtResource("miss")
+bomb_sound = ExtResource("bomb")
+combo_sound = ExtResource("combo")
 [node name="Camera" type="Camera3D" parent="."]
+unique_name_in_owner = true
 position = Vector3(0,0,20)
 projection = 1
 size = 11.25
@@ -44,10 +67,15 @@ rotation_degrees = Vector3(25,135,0)
 light_color = Color(0.8,0.9,1,1)
 light_energy = 0.2
 [node name="Fruits" type="Node3D" parent="."]
+unique_name_in_owner = true
 [node name="Fragments" type="Node3D" parent="."]
-[node name="Decor" type="Node3D" parent="."]
+unique_name_in_owner = true
+[node name="Decor" parent="." instance=ExtResource("decor")]
+unique_name_in_owner = true
 [node name="Canvas" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
 [node name="FX" type="Node2D" parent="Canvas"]
+unique_name_in_owner = true
 script = ExtResource("2")
 [node name="UI" type="Control" parent="Canvas"]
 layout_mode = 3
@@ -58,153 +86,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme = SubResource("Theme")
-[node name="HUD" type="Control" parent="Canvas/UI"]
-script = ExtResource("6")
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
+[node name="HUD" parent="Canvas/UI" instance=ExtResource("hud")]
 visible = false
 
-[node name="ScoreCaption" type="Label" parent="Canvas/UI/HUD"]
-layout_mode = 0
-offset_left = 64.0
-offset_top = 35.0
-offset_right = 264.0
-offset_bottom = 65.0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.58,0.72,0.65,1)
-theme_override_font_sizes/font_size = 18
-text = "得分"
+[node name="Menu" parent="Canvas/UI" instance=ExtResource("menu")]
 
-[node name="Score" type="Label" parent="Canvas/UI/HUD"]
-layout_mode = 0
-offset_left = 60.0
-offset_top = 61.0
-offset_right = 390.0
-offset_bottom = 151.0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.96,0.94,0.82,1)
-theme_override_font_sizes/font_size = 62
-text = "000"
-
-[node name="Best" type="Label" parent="Canvas/UI/HUD"]
-layout_mode = 0
-offset_left = 240.0
-offset_top = 86.0
-offset_right = 540.0
-offset_bottom = 121.0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.63,0.76,0.68,1)
-theme_override_font_sizes/font_size = 18
-text = "最佳  0"
-
-[node name="Lives" type="Label" parent="Canvas/UI/HUD"]
-layout_mode = 0
-offset_left = 660.0
-offset_top = 48.0
-offset_right = 1080.0
-offset_bottom = 103.0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.96,0.94,0.82,1)
-theme_override_font_sizes/font_size = 30
-text = "●  ●  ●"
-
-[node name="Pause" type="Button" parent="Canvas/UI/HUD"]
-layout_mode = 0
-offset_left = 1406.0
-offset_top = 45.0
-offset_right = 1538.0
-offset_bottom = 99.0
-theme_override_font_sizes/font_size = 18
-text = "暂停"
-
-[node name="Menu" type="Control" parent="Canvas/UI"]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-
-[node name="Eyebrow" type="Label" parent="Canvas/UI/Menu"]
-layout_mode = 0
-offset_left = 120.0
-offset_top = 174.0
-offset_right = 780.0
-offset_bottom = 210.0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.83,0.65,0.32,1)
-theme_override_font_sizes/font_size = 18
-text = "出刀如风 · 果香四溢"
-
-[node name="Title" type="Label" parent="Canvas/UI/Menu"]
-layout_mode = 0
-offset_left = 112.0
-offset_top = 218.0
-offset_right = 1012.0
-offset_bottom = 428.0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.96,0.94,0.82,1)
-theme_override_font_sizes/font_size = 80
-theme_override_fonts/font = ExtResource("3")
-text = "FRUIT\nSAMURAI"
-
-[node name="Subtitle" type="Label" parent="Canvas/UI/Menu"]
-layout_mode = 0
-offset_left = 120.0
-offset_top = 453.0
-offset_right = 800.0
-offset_bottom = 539.0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.63,0.77,0.69,1)
-theme_override_font_sizes/font_size = 24
-text = "屏息，挥刀，切开这一刻。\n用一连串利落的切击，刷新你的纪录。"
-
-[node name="Play" type="Button" parent="Canvas/UI/Menu"]
-layout_mode = 0
-offset_left = 120.0
-offset_top = 585.0
-offset_right = 490.0
-offset_bottom = 659.0
-theme_override_font_sizes/font_size = 22
-text = "开始挑战"
-
-[node name="Secondary" type="Button" parent="Canvas/UI/Menu"]
-layout_mode = 0
-offset_left = 510.0
-offset_top = 585.0
-offset_right = 740.0
-offset_bottom = 659.0
-theme_override_font_sizes/font_size = 20
-text = "重新开始"
-visible = false
-
-[node name="Instructions" type="Label" parent="Canvas/UI/Menu"]
-layout_mode = 0
-offset_left = 120.0
-offset_top = 698.0
-offset_right = 880.0
-offset_bottom = 798.0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.53,0.67,0.60,1)
-theme_override_font_sizes/font_size = 18
-text = "按住鼠标划动 / 手指滑动切水果，连续切中可获连击奖励。\n避开炸弹；漏掉 3 个水果，本局结束。\n按 Esc 可暂停。"
-
-[node name="ReducedMotion" type="CheckButton" parent="Canvas/UI/Menu"]
-layout_mode = 0
-offset_left = 1170.0
-offset_top = 800.0
-offset_right = 1520.0
-offset_bottom = 850.0
-theme_override_font_sizes/font_size = 16
-text = "减弱动态效果"
-
-[node name="Version" type="Label" parent="Canvas/UI/Menu"]
-layout_mode = 0
-offset_left = 120.0
-offset_top = 814.0
-offset_right = 740.0
-offset_bottom = 844.0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.45,0.58,0.51,1)
-theme_override_font_sizes/font_size = 14
-text = "经典模式  /  三次漏果机会  /  一刀入魂"
+[node name="GameAudio" parent="." instance=ExtResource("audio")]
+unique_name_in_owner = true

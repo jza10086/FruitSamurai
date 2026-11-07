@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PartyAudioCue" format=3]
+
+[ext_resource type="Script" path="res://games/protocols/godot_party_default_protocol/audio/audio_cue.gd" id="cue"]
+[ext_resource type="AudioStream" path="res://games/minigame/godot_party_default_fruit_samurai/assets/audio/miss.wav" id="stream"]
+
+[resource]
+script = ExtResource("cue")
+stream = ExtResource("stream")
+volume_db = -7.0
+max_instances = 8

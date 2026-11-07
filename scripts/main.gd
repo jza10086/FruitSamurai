@@ -1,7 +1,20 @@
 extends Node3D
+## Fruit simulation and local presentation. The entry owns networking and round lifetime.
+signal failed(code: String, message: String)
+const Hud = preload("res://games/minigame/godot_party_default_fruit_samurai/scripts/hud_skin.gd")
+const Effects = preload("res://games/minigame/godot_party_default_fruit_samurai/scripts/slice_effects.gd")
+const DEFAULT_TEXT: Translation = preload("res://games/minigame/godot_party_default_fruit_samurai/i18n/zh_Hans.po")
+@export var hud: Hud
+@export var audio: PartyGameAudio
+@export var slice_sound: PartyAudioCue
+@export var miss_sound: PartyAudioCue
+@export var bomb_sound: PartyAudioCue
+@export var combo_sound: PartyAudioCue
+@export var decor_spin: Vector3 = Vector3(0.06, 0.15, 0.04)
+var translate: Callable
 var party_input: PartyInput
 
-const Fruit: Script = preload("res://games/minigame/godot_party_default_fruit_samurai/scripts/fruit.gd")
+const Fruit = preload("res://games/minigame/godot_party_default_fruit_samurai/scripts/fruit.gd")
 enum State { MENU, PLAYING, PAUSED, OVER }
 var state: State = State.MENU
 var score: int = 0
@@ -15,80 +28,52 @@ var last_point: Vector2 = Vector2.ZERO
 var stroke_hits: int = 0
 var combo_window: float = 0.0
 var stroke_last: Vector2 = Vector2.ZERO
-var touch_id: int = -1
-var touch_cooldown: float = 0.0
 var shake: float = 0.0
 var hit_stop: float = 0.0
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
-var audio_players: Array[AudioStreamPlayer] = []
-var audio_index: int = 0
-@onready var camera: Camera3D = $Camera
-@onready var fruits: Node3D = $Fruits
-@onready var fragments: Node3D = $Fragments
-@onready var fx: Node2D = $Canvas/FX
-@onready var menu: Control = $Canvas/UI/Menu
-@onready var hud: Control = $Canvas/UI/HUD
+@onready var camera: Camera3D = %Camera
+@onready var fruits: Node3D = %Fruits
+@onready var fragments: Node3D = %Fragments
+@onready var fx: Effects = %FX
+@export var menu: Control
+@export var menu_play: Button
+@export var reduced_motion_button: CheckButton
+@export var title_label: Label
+@export var subtitle_label: Label
+@export var eyebrow: Label
+@export var instructions: Label
+@export var version_label: Label
+@onready var decor: Node3D = %Decor
+var simulation_active: bool = true
 
 func _ready() -> void:
+	assert(hud != null and audio != null, "Fruit Samurai requires HUD and scoped audio.")
+	assert(menu != null and menu_play != null and reduced_motion_button != null, "Fruit Samurai requires its preview menu.")
+	assert(title_label != null and subtitle_label != null and eyebrow != null and instructions != null and version_label != null, "Fruit Samurai requires its menu labels.")
+	assert(slice_sound != null and miss_sound != null and bomb_sound != null and combo_sound != null, "Fruit Samurai requires its sound cues.")
 	rng.randomize()
-	for i: Variant in range(8):
-		var player: AudioStreamPlayer = AudioStreamPlayer.new()
-		add_child(player)
-		audio_players.append(player)
-	menu.get_node("ReducedMotion").button_pressed = fx.reduced_motion
-	menu.get_node("Play").pressed.connect(_play_pressed)
-	menu.get_node("Secondary").hide()
-	menu.get_node("ReducedMotion").toggled.connect(_set_reduced_motion)
-	hud.get_node("Pause").pressed.connect(pause_game)
-	_style_ui()
-	var hud_style: String = "original"
-	for argument: Variant in OS.get_cmdline_user_args():
-		if argument.begins_with("--hud-style="):
-			hud_style = argument.trim_prefix("--hud-style=")
-	hud.configure(hud_style)
-	_create_decor()
+	menu_play.pressed.connect(_play_pressed)
+	reduced_motion_button.toggled.connect(_set_reduced_motion)
+	hud.pause_button.pressed.connect(pause_game)
+	hud.apply_translation(_text)
+	fx.translate = _text
+	reduced_motion_button.set_pressed_no_signal(fx.reduced_motion)
+	hud.pause_button.visible = party_input == null
+	instructions.text = _text(&"preview.instructions")
+	version_label.text = _text(&"preview.rules")
+	reduced_motion_button.text = _text(&"减弱动态效果")
+	_show_preview_menu(&"preview.title", &"preview.subtitle", &"preview.play")
+	if party_input != null:
+		menu.hide()
 	_update_hud()
 
-func _style_ui() -> void:
-	for button: Variant in [menu.get_node("Play"), menu.get_node("Secondary"), hud.get_node("Pause")]:
-		var normal: StyleBoxFlat = StyleBoxFlat.new()
-		normal.bg_color = Color("e9cc87") if button.name == "Play" else Color("1c3931")
-		normal.corner_radius_top_left = 6
-		normal.corner_radius_top_right = 6
-		normal.corner_radius_bottom_left = 6
-		normal.corner_radius_bottom_right = 6
-		normal.border_color = Color("607967")
-		normal.set_border_width_all(1)
-		button.add_theme_stylebox_override("normal", normal)
-		var hover: StyleBoxFlat = normal.duplicate() as StyleBoxFlat
-		hover.bg_color = normal.bg_color.lightened(0.16)
-		button.add_theme_stylebox_override("hover", hover)
-		var pressed: StyleBoxFlat = normal.duplicate() as StyleBoxFlat
-		pressed.bg_color = normal.bg_color.darkened(0.15)
-		button.add_theme_stylebox_override("pressed", pressed)
-		button.add_theme_stylebox_override("focus", hover)
-		button.add_theme_color_override("font_color", Color("19372c") if button.name == "Play" else Color("f3edda"))
-		button.add_theme_color_override("font_hover_color", Color("19372c") if button.name == "Play" else Color.WHITE)
-		button.add_theme_color_override("font_pressed_color", Color("19372c") if button.name == "Play" else Color.WHITE)
-		button.add_theme_color_override("font_focus_color", Color("19372c") if button.name == "Play" else Color.WHITE)
-
-func _create_decor() -> void:
-	for i: Variant in range(4):
-		var fruit: Variant = Fruit.new()
-		$Decor.add_child(fruit)
-		fruit.setup(i)
-		fruit.decorative = true
-		fruit.position = [Vector3(4.3,0.2,0), Vector3(6.5,2.0,-0.5), Vector3(3.0,2.7,0), Vector3(6.0,-2.5,0)][i]
-		fruit.scale = Vector3.ONE * [1.9,1.6,1.5,1.9][i]
-		fruit.rotation = Vector3(0.25,-0.4,0.25 if i % 2 == 0 else -0.3)
-		fruit.spin = Vector3(0.06,0.15,0.04)
+func _text(key: StringName, values: Dictionary = {}) -> String:
+	if translate.is_valid():
+		return translate.call(key, values)
+	return String(DEFAULT_TEXT.get_message(key)).format(values)
 
 func _set_reduced_motion(value: bool) -> void:
 	fx.reduced_motion = value
-	_save()
-
-func _save() -> void:
-	pass
 
 func start_game() -> void:
 	_clear_round()
@@ -98,28 +83,27 @@ func start_game() -> void:
 	wave = 0
 	spawn_timer = 0.45
 	state = State.PLAYING
+	simulation_active = true
 	menu.hide()
 	hud.show()
-	$Decor.hide()
+	decor.hide()
 	fx.set_process(true)
 	_update_hud()
 
 func _clear_round() -> void:
-	for container: Variant in [fruits, fragments]:
-		for child: Variant in container.get_children():
+	for container: Node3D in [fruits, fragments]:
+		for child: Node3D in container.get_children():
 			container.remove_child(child)
 			child.queue_free()
 	slicing = false
-	touch_id = -1
-	touch_cooldown = 0
 	stroke_hits = 0
+	combo_window = 0.0
 	hit_stop = 0
 	shake = 0
 	camera.position.x = 0
 	camera.position.y = 0
 	fx.clear_effects()
-	for player: Variant in audio_players:
-		player.stop()
+	audio.stop_all()
 
 func _play_pressed() -> void:
 	if state == State.PAUSED:
@@ -129,95 +113,73 @@ func _play_pressed() -> void:
 
 func pause_game() -> void:
 	finish_stroke()
+	if party_input != null or state != State.PLAYING:
+		return
+	state = State.PAUSED
+	fx.set_process(false)
+	audio.set_gameplay_paused(true)
+	_show_preview_menu(&"preview.paused", &"preview.pause_hint", &"preview.resume")
 
 func resume_game() -> void:
 	state = State.PLAYING
 	menu.hide()
 	fx.set_process(true)
-	slicing = false
-	touch_id = -1
+	audio.set_gameplay_paused(false)
 
-func end_game(reason: String) -> void:
+func end_game(reason: StringName) -> void:
 	if state != State.PLAYING:
 		return
 	finish_stroke()
 	state = State.OVER
 	best = maxi(best, score)
-	_save()
-	_show_menu("本局\\n结束", "%s\\n得分  %d · 等待其他玩家完成" % [reason, score], "")
-	menu.get_node("Play").hide()
-	menu.get_node("ReducedMotion").hide()
+	title_label.text = _text(&"game.over")
+	subtitle_label.text = _text(&"game.over_detail", {"reason": _text(reason), "score": score,
+		"next": _text(&"game.waiting") if party_input != null else _text(&"preview.retry")})
+	menu_play.text = _text(&"preview.retry")
+	menu_play.visible = party_input == null
+	reduced_motion_button.visible = party_input == null
+	menu.show()
 	hud.hide()
-	$Decor.show()
-	for child: Variant in fruits.get_children():
+	decor.show()
+	for child: Node3D in fruits.get_children():
 		child.hide()
 
-func _show_menu(title: String, subtitle: String, button: String) -> void:
-	menu.get_node("Title").add_theme_font_override("font", load("res://games/minigame/godot_party_default_fruit_samurai/assets/Chinese.ttc"))
-	menu.get_node("Title").text = title.replace("\\n", "\n")
-	menu.get_node("Subtitle").text = subtitle.replace("\\n", "\n")
-	menu.get_node("Play").text = button
-	menu.get_node("Secondary").visible = state == State.PAUSED
-	menu.get_node("Eyebrow").text = "出刀如风 · 果香四溢" if state != State.PAUSED else "暂停中"
+func _show_preview_menu(title: StringName, subtitle: StringName, button: StringName) -> void:
+	title_label.text = _text(title)
+	subtitle_label.text = _text(subtitle)
+	menu_play.text = _text(button)
+	eyebrow.text = _text(&"preview.eyebrow")
 	menu.show()
 
 func _update_hud() -> void:
 	hud.update_values(score, best, misses)
 
-func _setup_hud_preview() -> void:
-	# Capture renders a 1920x1080 viewport even when the desktop caps window dimensions.
-	# HUD's authored 1600x900 coordinate system scales once; 3D and FX use viewport pixels.
-	for argument: Variant in OS.get_cmdline_user_args():
-		if argument.begins_with("--hud-capture="):
-			var window: Variant = get_window()
-			window.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
-			window.content_scale_size = Vector2i(1920,1080)
-			$Canvas/UI.scale = Vector2(1.2,1.2)
-			await get_tree().process_frame
-	# Explicit, deterministic illustration for fair skin comparisons, not a recorded score.
-	start_game()
-	rng.seed = 1729
-	fx._rng.seed = 1729
-	score = 245
-	best = 980
-	misses = 1
-	_update_hud()
-	var positions: Array = [Vector3(-4.8,-0.5,0), Vector3(-1.9,1.3,0), Vector3(1.6,-0.7,0), Vector3(4.7,0.8,0)]
-	for i: Variant in range(4):
-		var fruit: Variant = spawn_fruit(i, positions[i])
-		fruit.rotation = Vector3(0.24, -0.35, -0.22 + i * 0.19)
-	var source: Variant = spawn_fruit(2, Vector3(0.2,0.4,0))
-	_split(source, Vector2(0.8,-0.6))
-	fruits.remove_child(source)
-	source.queue_free()
-	for piece: Variant in fragments.get_children():
-		piece.step(0.12)
-	var at: Variant = camera.unproject_position(Vector3(0.2,0.4,0))
-	fx.burst(at, Color("ffdf5c"), Vector2(0.8,-0.6))
-	fx.show_combo(at + Vector2(12,-70), 3, 15)
-	fx._process(0.2)
-	for p: Variant in [Vector2(-105,74),Vector2(-54,42),Vector2(-5,10),Vector2(45,-22),Vector2(82,-54)]:
-		fx.add_blade_point(at + p)
+## Freeze local play without stopping the entry's coordination messages.
+## Settle a final stroke before reporting, but never award a cancelled stroke.
+func stop_gameplay(settle_stroke: bool = false) -> void:
+	if settle_stroke:
+		finish_stroke()
+	else:
+		slicing = false
+		stroke_hits = 0
+		combo_window = 0.0
+		fx.end_blade()
+	simulation_active = false
+	fx.clear_effects()
 	fx.set_process(false)
-	set_process(false)
-	for argument: Variant in OS.get_cmdline_user_args():
-		if argument.begins_with("--hud-capture="):
-			_capture_hud_preview(argument.trim_prefix("--hud-capture="))
-
-func _capture_hud_preview(path: String) -> void:
-	# A real rendered viewport; never available in the headless dummy renderer.
-	await get_tree().process_frame
-	await RenderingServer.frame_post_draw
-	var image: Variant = get_viewport().get_texture().get_image()
-	var result: Variant = image.save_png(path)
-	print("HUD_CAPTURE: ", path, " result=", result)
+	audio.stop_all()
 
 func _process(delta: float) -> void:
+	if not simulation_active:
+		return
+	if slicing and not _slice_pressed():
+		finish_stroke()
+		if not simulation_active:
+			return
 	var dt: float = minf(delta, 0.033)
-	touch_cooldown = maxf(0, touch_cooldown - dt)
-	for decor: Variant in $Decor.get_children():
+	for decoration: Node3D in decor.get_children():
 		if not fx.reduced_motion:
-			decor.step(dt)
+			decoration.rotation += decor_spin * dt
 	if state != State.PLAYING:
 		return
 	if hit_stop > 0:
@@ -227,6 +189,8 @@ func _process(delta: float) -> void:
 		combo_window -= dt
 		if combo_window <= 0:
 			_settle_combo()
+			if not simulation_active:
+				return
 	elapsed += dt
 	shake = maxf(0, shake - dt * 4)
 	camera.position.x = rng.randf_range(-shake, shake) * 0.12 if not fx.reduced_motion else 0.0
@@ -235,20 +199,21 @@ func _process(delta: float) -> void:
 	if spawn_timer <= 0:
 		_spawn_wave()
 		spawn_timer = maxf(1.3, 2.1 - elapsed * 0.006)
-	for fruit: Variant in fruits.get_children():
+	for fruit: Fruit in fruits.get_children():
 		fruit.step(dt)
 		if fruit.position.y < -7.6 and fruit.velocity.y < 0:
 			if not fruit.cut and fruit.kind != 4:
 				misses += 1
-				_sound("miss")
+				if _sound(miss_sound) != OK:
+					return
 				_update_hud()
 				if misses >= 3:
-					end_game("漏掉了三个水果，下次一定更快。")
+					end_game(&"game.missed")
 			fruit.cut = true
 			fruit.queue_free()
 			if state != State.PLAYING:
 				break
-	for piece: Variant in fragments.get_children():
+	for piece: Fruit in fragments.get_children():
 		piece.step(dt)
 		if piece.position.y < -9 or piece.age > 3:
 			piece.queue_free()
@@ -257,13 +222,13 @@ func _spawn_wave() -> void:
 	wave += 1
 	var count: int = mini(5, 2 + int(elapsed / 22.0))
 	var center: float = rng.randf_range(-3.8, 3.8)
-	for i: Variant in range(count):
+	for i: int in range(count):
 		spawn_fruit(rng.randi_range(0, 3), Vector3(center + (float(i) - float(count - 1) * 0.5) * 1.65, -6.6 - rng.randf_range(0, 0.4), rng.randf_range(-0.4, 0.4)))
 	if wave > 2 and rng.randf() < 0.52:
 		spawn_fruit(4, Vector3(rng.randf_range(-6.5,6.5), -7.1, 0.4))
 
-func spawn_fruit(kind: int, at: Vector3) -> Node3D:
-	var fruit: Variant = Fruit.new()
+func spawn_fruit(kind: int, at: Vector3) -> Fruit:
+	var fruit: Fruit = Fruit.new()
 	fruits.add_child(fruit)
 	fruit.setup(kind)
 	fruit.position = at
@@ -277,7 +242,7 @@ static func segment_hits_circle(a: Vector2, b: Vector2, center: Vector2, radius:
 	return (a + ab * t).distance_squared_to(center) <= radius * radius
 
 func begin_stroke(point: Vector2) -> void:
-	if state != State.PLAYING:
+	if not simulation_active or state != State.PLAYING or not _slice_pressed():
 		return
 	slicing = true
 	last_point = point
@@ -286,13 +251,13 @@ func begin_stroke(point: Vector2) -> void:
 	fx.add_blade_point(point)
 
 func continue_stroke(point: Vector2) -> void:
-	if not slicing or state != State.PLAYING:
+	if not simulation_active or not slicing or state != State.PLAYING or not _slice_pressed():
 		return
 	fx.add_blade_point(point)
 	if point.distance_squared_to(last_point) < 4:
 		return
 	var direction: Vector2 = (point - last_point).normalized()
-	for fruit: Variant in fruits.get_children():
+	for fruit: Fruit in fruits.get_children():
 		if fruit.cut or fruit.is_queued_for_deletion() or camera.is_position_behind(fruit.global_position):
 			continue
 		var center: Vector2 = camera.unproject_position(fruit.global_position)
@@ -309,7 +274,8 @@ func _settle_combo() -> void:
 		var bonus: int = stroke_hits * 5
 		score += bonus
 		fx.show_combo(stroke_last, stroke_hits, bonus)
-		_sound("combo")
+		if _sound(combo_sound) != OK:
+			return
 		_update_hud()
 	stroke_hits = 0
 	combo_window = 0
@@ -319,17 +285,18 @@ func finish_stroke() -> void:
 	slicing = false
 	fx.end_blade()
 
-func cut_fruit(fruit: Node3D, point: Vector2, direction: Vector2) -> void:
+func cut_fruit(fruit: Fruit, point: Vector2, direction: Vector2) -> void:
 	if fruit.cut or state != State.PLAYING:
 		return
 	fruit.cut = true
-	_sound("bomb" if fruit.kind == 4 else "slice")
+	if _sound(bomb_sound if fruit.kind == 4 else slice_sound, fruit.kind != 4) != OK:
+		return
 	fx.burst(point, fruit.juice_color(), direction, fruit.kind == 4)
 	shake = 1.0 if fruit.kind == 4 else 0.2
 	hit_stop = 0.045 if not fx.reduced_motion else 0.0
 	if fruit.kind == 4:
 		fruit.queue_free()
-		end_game("切到了炸弹！调整节奏，再试一次。")
+		end_game(&"game.bomb")
 		return
 	score += 10
 	stroke_hits += 1
@@ -339,12 +306,12 @@ func cut_fruit(fruit: Node3D, point: Vector2, direction: Vector2) -> void:
 	_split(fruit, direction)
 	fruit.queue_free()
 
-func _split(fruit: Node3D, direction: Vector2) -> void:
+func _split(fruit: Fruit, direction: Vector2) -> void:
 	var normal: Vector3 = Vector3(-direction.y, -direction.x, 0).normalized()
 	var angle: float = atan2(normal.y, normal.x)
 	if fruit.kind < 3:
-		for side: Variant in range(2):
-			var piece: Variant = Fruit.new()
+		for side: int in range(2):
+			var piece: Fruit = Fruit.new()
 			fragments.add_child(piece)
 			piece.setup(fruit.kind, true, side == 1)
 			piece.fragment = true
@@ -355,10 +322,10 @@ func _split(fruit: Node3D, direction: Vector2) -> void:
 			piece.spin = Vector3(sign_value * 2.5, sign_value * 1.5, sign_value * 2)
 	else:
 		# Kenney's melon is composed of eight authored wedges. Preserve their transforms.
-		for original: Variant in fruit.visual.get_child(0).get_children():
+		for original: Node in fruit.visual.get_child(0).get_children():
 			if not original is MeshInstance3D:
 				continue
-			var piece: Variant = Fruit.new()
+			var piece: Fruit = Fruit.new()
 			fragments.add_child(piece)
 			piece.kind = 3
 			piece.fragment = true
@@ -369,14 +336,25 @@ func _split(fruit: Node3D, direction: Vector2) -> void:
 			piece.velocity = fruit.velocity * 0.3 + Vector3(rng.randf_range(-3.5,3.5),rng.randf_range(-1,3),rng.randf_range(-1,1))
 			piece.spin = Vector3(rng.randf_range(-3,3),rng.randf_range(-3,3),rng.randf_range(-3,3))
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and not event.pressed and slicing:
+func _slice_pressed() -> bool:
+	if party_input != null:
+		return party_input.is_pressed(&"fruit_slice")
+	return Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
+
+func _input(_event: InputEvent) -> void:
+	if slicing and not _slice_pressed():
 		finish_stroke()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if party_input == null or not party_input.is_pressed(&"fruit_slice"):
-		if slicing:
-			finish_stroke()
+	# F6 has a local preview boundary; formal play only reads the scoped action.
+	if party_input == null and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_ESCAPE:
+		if state == State.PAUSED:
+			resume_game()
+		else:
+			pause_game()
+		get_viewport().set_input_as_handled()
+		return
+	if not simulation_active or not _slice_pressed():
 		return
 	if event is InputEventMouseButton and event.pressed:
 		begin_stroke(get_viewport().get_mouse_position())
@@ -385,31 +363,19 @@ func _unhandled_input(event: InputEvent) -> void:
 			begin_stroke(event.position)
 		continue_stroke(event.position)
 
-func _notification(_what: int) -> void:
-	pass
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT and slicing:
+		finish_stroke()
 
-func _sound(effect: String) -> void:
-	if audio_players.is_empty():
-		return
-	var player: AudioStreamPlayer = audio_players[audio_index % audio_players.size()]
-	audio_index += 1
-	player.stream = load("res://games/minigame/godot_party_default_fruit_samurai/assets/audio/" + effect + ".wav")
-	player.pitch_scale = rng.randf_range(0.9, 1.15) if effect == "slice" else 1.0
-	player.volume_db = -7.0
-	player.play()
+func _sound(authored_cue: PartyAudioCue, vary_pitch: bool = false) -> Error:
+	var cue: PartyAudioCue = authored_cue
+	if vary_pitch:
+		# Per-play pitch must not mutate the shared authored cue.
+		cue = authored_cue.duplicate()
+		cue.pitch_scale = rng.randf_range(0.9, 1.15)
+	var handle: PartyAudioHandle = audio.play_sfx(cue)
+	if handle.error != OK:
+		stop_gameplay()
+		failed.emit("audio_failed", error_string(handle.error))
 
-func _touch_ui(point: Vector2) -> bool:
-	if menu.visible:
-		for name_value: Variant in ["Play", "Secondary", "ReducedMotion"]:
-			var button: BaseButton = menu.get_node(name_value) as BaseButton
-			if button.visible and button.get_global_rect().has_point(point):
-				if button is CheckButton:
-					button.button_pressed = not button.button_pressed
-				else:
-					button.pressed.emit()
-				return true
-		return true
-	if hud.visible and hud.get_node("Pause").get_global_rect().has_point(point):
-		pause_game()
-		return true
-	return false
+	return handle.error

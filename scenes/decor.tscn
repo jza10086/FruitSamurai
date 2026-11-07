@@ -1,0 +1,164 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://games/minigame/godot_party_default_fruit_samurai/assets/models/apple.glb" id="1_hic87"]
+[ext_resource type="Shader" path="res://games/minigame/godot_party_default_fruit_samurai/scripts/fruit_palette.gdshader" id="2_l3qxm"]
+[ext_resource type="Texture2D" path="res://games/minigame/godot_party_default_fruit_samurai/assets/models/Textures/colormap.png" id="3_1ni75"]
+[ext_resource type="PackedScene" path="res://games/minigame/godot_party_default_fruit_samurai/assets/models/pear.glb" id="4_i6jfn"]
+[ext_resource type="PackedScene" path="res://games/minigame/godot_party_default_fruit_samurai/assets/models/lemon.glb" id="5_6fhya"]
+[ext_resource type="PackedScene" path="res://games/minigame/godot_party_default_fruit_samurai/assets/models/watermelon.glb" id="6_3166p"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o067i"]
+render_priority = 0
+shader = ExtResource("2_l3qxm")
+shader_parameter/palette = ExtResource("3_1ni75")
+shader_parameter/fruit_kind = 0
+shader_parameter/model_from_mesh = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o6rj3"]
+render_priority = 0
+shader = ExtResource("2_l3qxm")
+shader_parameter/palette = ExtResource("3_1ni75")
+shader_parameter/fruit_kind = 1
+shader_parameter/model_from_mesh = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wpbxr"]
+render_priority = 0
+shader = ExtResource("2_l3qxm")
+shader_parameter/palette = ExtResource("3_1ni75")
+shader_parameter/fruit_kind = 2
+shader_parameter/model_from_mesh = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k1j45"]
+render_priority = 0
+shader = ExtResource("2_l3qxm")
+shader_parameter/palette = ExtResource("3_1ni75")
+shader_parameter/fruit_kind = 3
+shader_parameter/model_from_mesh = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d7xq7"]
+render_priority = 0
+shader = ExtResource("2_l3qxm")
+shader_parameter/palette = ExtResource("3_1ni75")
+shader_parameter/fruit_kind = 3
+shader_parameter/model_from_mesh = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0bmbc"]
+render_priority = 0
+shader = ExtResource("2_l3qxm")
+shader_parameter/palette = ExtResource("3_1ni75")
+shader_parameter/fruit_kind = 3
+shader_parameter/model_from_mesh = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vfu4x"]
+render_priority = 0
+shader = ExtResource("2_l3qxm")
+shader_parameter/palette = ExtResource("3_1ni75")
+shader_parameter/fruit_kind = 3
+shader_parameter/model_from_mesh = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qk2f6"]
+render_priority = 0
+shader = ExtResource("2_l3qxm")
+shader_parameter/palette = ExtResource("3_1ni75")
+shader_parameter/fruit_kind = 3
+shader_parameter/model_from_mesh = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ey0rx"]
+render_priority = 0
+shader = ExtResource("2_l3qxm")
+shader_parameter/palette = ExtResource("3_1ni75")
+shader_parameter/fruit_kind = 3
+shader_parameter/model_from_mesh = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pv2xo"]
+render_priority = 0
+shader = ExtResource("2_l3qxm")
+shader_parameter/palette = ExtResource("3_1ni75")
+shader_parameter/fruit_kind = 3
+shader_parameter/model_from_mesh = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dj6xh"]
+render_priority = 0
+shader = ExtResource("2_l3qxm")
+shader_parameter/palette = ExtResource("3_1ni75")
+shader_parameter/fruit_kind = 3
+shader_parameter/model_from_mesh = null
+
+[node name="Decor" type="Node3D" unique_id=919875108]
+
+[node name="Apple" type="Node3D" parent="." unique_id=452512333]
+transform = Transform3D(1.6503241, -0.61032313, -0.7168933, 0.45545426, 1.7837034, -0.47006753, 0.82400954, 0.23644826, 1.6956121, 4.3, 0.2, 0)
+
+[node name="Visual" type="Node3D" parent="Apple" unique_id=1538861975]
+transform = Transform3D(6.3679667, 0, 0, 0, 6.3679667, 0, 0, 0, 6.3679667, 0, 0, 0)
+
+[node name="apple2" type="Node3D" parent="Apple/Visual" unique_id=2098511829 instance=ExtResource("1_hic87")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0953765, 0)
+
+[node name="apple" parent="Apple/Visual/apple2" unique_id=977109037]
+material_override = SubResource("ShaderMaterial_o067i")
+
+[node name="Pear" type="Node3D" parent="." unique_id=1390864363]
+transform = Transform3D(1.4534315, 0.2882425, -0.6036996, -0.45813313, 1.4810199, -0.39584634, 0.48749462, 0.53244394, 1.427884, 6.5, 2, -0.5)
+
+[node name="Visual" type="Node3D" parent="Pear" unique_id=2040990586]
+transform = Transform3D(4.616754, 0, 0, 0, 4.616754, 0, 0, 0, 4.616754, 0, 0, 0)
+
+[node name="pear2" type="Node3D" parent="Pear/Visual" unique_id=1221535959 instance=ExtResource("4_i6jfn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1353765, 0)
+
+[node name="pear" parent="Pear/Visual/pear2" unique_id=785982992]
+material_override = SubResource("ShaderMaterial_o6rj3")
+
+[node name="Lemon" type="Node3D" parent="." unique_id=1580117489]
+transform = Transform3D(1.3028874, -0.48183405, -0.5659684, 0.35956916, 1.4081869, -0.37110594, 0.65053385, 0.18666968, 1.3386412, 3, 2.7, 0)
+
+[node name="Visual" type="Node3D" parent="Lemon" unique_id=228807827]
+transform = Transform3D(5.580357, 0, 0, 0, 5.580357, 0, 0, 0, 5.580357, 0, 0, 0)
+
+[node name="lemon2" type="Node3D" parent="Lemon/Visual" unique_id=710987109 instance=ExtResource("5_6fhya")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.112, 0)
+
+[node name="lemon" parent="Lemon/Visual/lemon2" unique_id=798717174]
+material_override = SubResource("ShaderMaterial_wpbxr")
+
+[node name="Watermelon" type="Node3D" parent="." unique_id=1292239311]
+transform = Transform3D(1.7259498, 0.34228796, -0.7168933, -0.54403305, 1.7587111, -0.47006753, 0.57889986, 0.6322772, 1.6956121, 6, -2.5, 0)
+
+[node name="Visual" type="Node3D" parent="Watermelon" unique_id=798193311]
+transform = Transform3D(3.1505985, 0, 0, 0, 3.1505985, 0, 0, 0, 3.1505985, 0, 0, 0)
+
+[node name="watermelon" type="Node3D" parent="Watermelon/Visual" unique_id=55670479 instance=ExtResource("6_3166p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.23805, 0)
+
+[node name="slice" parent="Watermelon/Visual/watermelon" unique_id=1840375153]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.023579106, 1.6029653e-31, 0.1374291)
+material_override = SubResource("ShaderMaterial_k1j45")
+
+[node name="slice2" parent="Watermelon/Visual/watermelon" unique_id=689829661]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.113850005, 0, 0.08050411)
+material_override = SubResource("ShaderMaterial_d7xq7")
+
+[node name="slice3" parent="Watermelon/Visual/watermelon" unique_id=185728999]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08050411, 0, -0.113850005)
+material_override = SubResource("ShaderMaterial_0bmbc")
+
+[node name="slice4" parent="Watermelon/Visual/watermelon" unique_id=521314122]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1374291, 0, 0.023579106)
+material_override = SubResource("ShaderMaterial_vfu4x")
+
+[node name="slice5" parent="Watermelon/Visual/watermelon" unique_id=1268787494]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08050411, 0, 0.113850005)
+material_override = SubResource("ShaderMaterial_qk2f6")
+
+[node name="slice6" parent="Watermelon/Visual/watermelon" unique_id=835131884]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.023579106, 1.6029653e-31, -0.1374291)
+material_override = SubResource("ShaderMaterial_ey0rx")
+
+[node name="slice7" parent="Watermelon/Visual/watermelon" unique_id=1310739698]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.113850005, 0, -0.08050411)
+material_override = SubResource("ShaderMaterial_pv2xo")
+
+[node name="slice8" parent="Watermelon/Visual/watermelon" unique_id=410778656]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1374291, 0, -0.023579106)
+material_override = SubResource("ShaderMaterial_dj6xh")

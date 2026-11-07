@@ -1,30 +1,38 @@
 extends Node3D
-## Local responsive simulation; host accepts bounded progress and publishes one result.
-const IS_PLATFORM: bool = false
+## Local cutting stays responsive; this entry owns bounded host scoring and round lifetime.
+const Gameplay = preload("res://games/minigame/godot_party_default_fruit_samurai/scripts/main.gd")
 const Pages = preload("res://games/protocols/godot_party_default_protocol/round_pages.gd")
+const STANDING_ROW: PackedScene = preload("res://games/protocols/godot_party_default_protocol/standing_row.tscn")
+@export var game: Gameplay
+@export var challenge_hud: CanvasLayer
+@export var summary: VBoxContainer
+@export var round_label: Label
+@export var world: WorldEnvironment
+@export var sun: DirectionalLight3D
 var pages: Pages
 var api: PartyAPI
 var request: Dictionary
 var players: Array[Dictionary] = []
 var local_id: String = ""
-@onready var game: Node3D = $Gameplay
 var running: bool = false
+var stopped: bool = false
 var submitted: bool = false
 var elapsed: float = 0.0
-var deadline: float = 90.0
+var deadline: float
 var report_clock: float = 0.0
-var records: Dictionary = {}
-const StandingRow: PackedScene = preload("res://games/protocols/godot_party_default_protocol/standing_row.tscn")
+var records: Dictionary[String, Dictionary] = {}
 var score_rows: Dictionary[String, Label] = {}
-@onready var summary: VBoxContainer = $ChallengeHUD/Status/Rankings
-@onready var round_label: Label = $ChallengeHUD/Status/RoundClock
 var sequence: int = 0
 
 func party_setup(value: PartyAPI, config: Dictionary) -> void:
 	api = value
 	request = config.duplicate(true)
 	players = api.get_players()
-	deadline = float(api.get_settings().get("duration", 180 if IS_PLATFORM else 90))
+	deadline = float(api.get_settings()["duration"])
+	game.party_input = api.input
+	game.translate = api.i18n.text
+	game.audio.prepare_scope()
+	game.simulation_active = false
 	for player: Dictionary in players:
 		var id: String = player.player_id
 		if player.is_local:
@@ -32,106 +40,128 @@ func party_setup(value: PartyAPI, config: Dictionary) -> void:
 		records[id] = {"score": 0, "done": false, "won": false, "elapsed": 0.0, "seq": -1, "withdrawn": not player.connected}
 	api.net.message_received.connect(_message)
 	api.players_changed.connect(_players_changed)
+	game.failed.connect(_fail)
 
 func _ready() -> void:
+	assert(game != null and challenge_hud != null and summary != null and round_label != null, "Fruit Samurai requires its gameplay and ranking HUD.")
+	assert(world != null and sun != null, "Fruit Samurai requires its graphics targets.")
 	if api == null:
-		push_error("请从 GodotParty 大厅启动小游戏")
+		push_error("请从 GodotParty 大厅启动小游戏；F6 预览使用 scenes/main.tscn。")
+		game.stop_gameplay()
 		return
 	if request.get("mode") != "standard":
-		api.fail("unsupported_request", "此小游戏仅支持 standard 普通局")
+		_fail("unsupported_request", "此小游戏仅支持 standard 普通局")
 		return
-	game.process_mode = Node.PROCESS_MODE_DISABLED
-	if IS_PLATFORM:
-		game.party_input = api.input
-		game.player.party_input = api.input
-		game.pause_button.hide()
-		game.restart_button.hide()
-	else:
-		game.party_input = api.input
-		game.menu.hide()
-		game.hud.get_node("Pause").hide()
-		game.fx.reduced_motion = bool(api.config.get_own(&"reduced_motion", false))
+	game.fx.reduced_motion = bool(api.config.get_own(&"reduced_motion"))
 	for player: Dictionary in players:
-		var row: Label = StandingRow.instantiate()
+		var row: Label = STANDING_ROW.instantiate()
 		summary.add_child(row)
 		score_rows[player.player_id] = row
 		row.text = player.name
-	round_label.text = "等待所有玩家准备完成"
+	round_label.text = api.i18n.text(&"hud.ready")
 	pages = Pages.new()
-	var ready_error: Error = pages.prepare(self, api, request, _start_gameplay)
-	if ready_error != OK:
-		api.fail("load_failed", error_string(ready_error))
+	var error: Error = pages.prepare(self, api, request, _start_gameplay)
+	if error != OK:
+		_fail("load_failed", error_string(error))
 
 func party_start() -> void:
 	pages.transport_started()
 
 func _start_gameplay() -> void:
 	running = true
-	if game != null and not local_id.is_empty():
-		game.process_mode = Node.PROCESS_MODE_INHERIT
+	game.process_mode = Node.PROCESS_MODE_INHERIT
+	if not local_id.is_empty():
 		game.rng.seed = api.get_seed()
-		if IS_PLATFORM:
-			game.remaining_time = deadline
-		else:
-			game.start_game()
-	_publish()
+		game.start_game()
+	var error: Error = _publish()
+	if error != OK:
+		_fail("standings_failed", error_string(error))
 
+## Cleanup is synchronous and idempotent, including cancellation before ready.
 func party_stop(_reason: StringName) -> void:
+	if stopped:
+		return
+	stopped = true
 	running = false
-	if game != null:
-		game.process_mode = Node.PROCESS_MODE_DISABLED
+	if game.is_node_ready():
+		game.stop_gameplay()
+		game.get_node("Canvas").hide()
+	challenge_hud.hide()
+	game.audio.close_scope()
+	if api != null:
+		api.net.message_received.disconnect(_message)
+		api.players_changed.disconnect(_players_changed)
+		game.failed.disconnect(_fail)
+	if pages != null:
+		pages.stop()
+		pages.hide()
 
 func _process(delta: float) -> void:
 	if not running:
 		return
 	elapsed += delta
-	round_label.text = api.i18n.text(&"hud.time", {"time": maxi(0, ceili(deadline - elapsed)), "spectator": " · 观战中" if local_id.is_empty() else ""})
-	if game != null and not submitted and not local_id.is_empty():
-		var ended: bool = (game.won or game.lives <= 0) if IS_PLATFORM else game.state == game.State.OVER
-		if ended or elapsed >= deadline:
-			if not IS_PLATFORM:
-				game.finish_stroke()
-			submitted = true
-			game.process_mode = Node.PROCESS_MODE_DISABLED
-			_send_progress(true)
+	round_label.text = api.i18n.text(&"hud.time", {"time": maxi(0, ceili(deadline - elapsed)),
+		"spectator": api.i18n.text(&"hud.spectator") if local_id.is_empty() else ""})
+	if not submitted and not local_id.is_empty() and (game.state == Gameplay.State.OVER or elapsed >= deadline):
+		game.stop_gameplay(true)
+		if stopped:
+			return
+		submitted = true
+		var error: Error = _send_progress(true)
+		if error != OK:
+			_fail("progress_failed", error_string(error))
+			return
 	report_clock += delta
 	if report_clock >= 0.25:
 		report_clock = 0.0
-		if game != null and not submitted and not local_id.is_empty():
-			_send_progress(false)
-		if api.is_host():
-			_publish()
+		if not submitted and not local_id.is_empty():
+			var error: Error = _send_progress(false)
+			if error != OK:
+				_fail("progress_failed", error_string(error))
+				return
+		var error: Error = _publish()
+		if error != OK:
+			_fail("standings_failed", error_string(error))
+			return
 	if api.is_host():
 		var all_done: bool = true
-		for id: String in records:
-			if not records[id].done and not records[id].withdrawn:
+		for row: Dictionary in records.values():
+			if not row.done and not row.withdrawn:
 				all_done = false
 		if all_done or elapsed >= deadline + 2.0:
 			_finish()
 
-func _send_progress(done: bool) -> void:
+func _send_progress(done: bool) -> Error:
 	sequence += 1
-	api.net.send_to_host(&"progress", {"seq": sequence, "score": int(game.score), "won": bool(game.won) if IS_PLATFORM else false, "done": done, "elapsed": minf(elapsed, deadline)})
+	return api.net.send_to_host(&"progress", {"seq": sequence, "score": game.score, "won": false,
+		"done": done, "elapsed": minf(elapsed, deadline)})
 
 func _message(sender: Dictionary, topic: StringName, payload: Variant) -> void:
+	# G01 still owns page visibility. Stop local effects before its result handler
+	# disables the root; the page remains responsible for validating the result.
+	if topic == Pages.RESULT_TOPIC and sender.peer_id == 1 and not api.is_host():
+		running = false
+		game.stop_gameplay()
+		return
 	if not running or not payload is Dictionary:
 		return
-	if topic == &"standings" and int(sender.get("peer_id", 0)) == 1:
+	if topic == &"standings" and sender.peer_id == 1:
 		_show_standings(payload)
 	elif topic == &"progress" and api.is_host():
 		var id: String = ""
 		for player: Dictionary in api.get_players():
-			if player.connected and player.player_id in sender.get("player_ids", []):
+			if player.connected and player.player_id in sender.player_ids:
 				id = player.player_id
 				break
 		if id.is_empty() or not _valid_progress(payload) or records[id].done or records[id].withdrawn:
 			return
 		if payload.seq <= records[id].seq or payload.score < records[id].score:
 			return
-		records[id] = {"score": payload.score, "won": payload.won, "done": payload.done, "elapsed": payload.elapsed, "seq": payload.seq, "withdrawn": false}
+		records[id] = {"score": payload.score, "won": payload.won, "done": payload.done,
+			"elapsed": payload.elapsed, "seq": payload.seq, "withdrawn": false}
 
 func _valid_progress(value: Dictionary) -> bool:
-	return value.get("seq") is int and value.seq >= 0 and value.get("score") is int and value.score >= 0 and value.score <= 1000000 and value.get("won") is bool and value.get("done") is bool and (value.get("elapsed") is float or value.get("elapsed") is int) and is_finite(float(value.elapsed)) and value.elapsed >= 0 and value.elapsed <= deadline and (not value.won or IS_PLATFORM)
+	return value.get("seq") is int and value.seq >= 0 and value.get("score") is int and value.score >= 0 and value.score <= 1000000 and value.get("won") is bool and not value.won and value.get("done") is bool and (value.get("elapsed") is float or value.get("elapsed") is int) and is_finite(float(value.elapsed)) and value.elapsed >= 0 and value.elapsed <= deadline
 
 func _players_changed() -> void:
 	if not api.is_host():
@@ -140,40 +170,50 @@ func _players_changed() -> void:
 		if not player.connected and records.has(player.player_id):
 			records[player.player_id].withdrawn = true
 
-func _publish() -> void:
-	if api.is_host():
-		api.net.broadcast(&"standings", {"records": records.duplicate(true)})
+func _publish() -> Error:
+	if not api.is_host():
+		return OK
+	return api.net.broadcast(&"standings", {"records": records.duplicate(true)})
 
 func _show_standings(value: Dictionary) -> void:
 	for player: Dictionary in players:
 		var row: Dictionary = value.get("records", {}).get(player.player_id, {})
-		var caption: String = api.i18n.text(&"hud.player", {"player": player.name, "score": row.get("score", 0), "state": "已退出" if row.get("withdrawn", false) else ("已完成" if row.get("done", false) else "挑战中")})
-		if score_rows[player.player_id].text != caption:
-			score_rows[player.player_id].text = caption
+		var state_key: StringName = &"hud.withdrawn" if row.get("withdrawn", false) else (&"hud.completed" if row.get("done", false) else &"hud.playing")
+		score_rows[player.player_id].text = api.i18n.text(&"hud.player", {"player": player.name,
+			"score": row.get("score", 0), "state": api.i18n.text(state_key)})
 
 func _finish() -> void:
 	running = false
+	game.stop_gameplay()
 	var rows: Array[Dictionary] = []
 	for player: Dictionary in players:
 		var row: Dictionary = records[player.player_id]
-		rows.append({"player_id": player.player_id, "rank": 0, "status": "withdrawn" if row.withdrawn else "completed", "metrics": {"score": row.score, "time": roundi(row.elapsed * 1000.0), "clear": 1 if row.won else 0}})
+		rows.append({"player_id": player.player_id, "rank": 0, "status": "withdrawn" if row.withdrawn else "completed",
+			"metrics": {"score": row.score, "time": roundi(row.elapsed * 1000.0), "clear": 0}})
 	rows.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a.metrics.score > b.metrics.score)
-	for index: int in rows.size():
-		if rows[index].status == "withdrawn":
+	for row: Dictionary in rows:
+		if row.status == "withdrawn":
 			continue
 		var rank_value: int = 1
 		for other: Dictionary in rows:
-			if other.status != "withdrawn" and other.metrics.score > rows[index].metrics.score:
+			if other.status != "withdrawn" and other.metrics.score > row.metrics.score:
 				rank_value += 1
-		rows[index].rank = rank_value
-	var result: Dictionary = {"request_id": request.request_id, "reason": "completed", "rankings": rows, "columns": [{"key": "score", "title": "得分", "format": "integer"}, {"key": "time", "title": "用时", "format": "time"}]}
+		row.rank = rank_value
+	var result: Dictionary = {"request_id": request.request_id, "reason": "completed", "rankings": rows,
+		"columns": [{"key": "score", "title": api.i18n.text(&"hud.score"), "format": "integer"},
+			{"key": "time", "title": api.i18n.text(&"hud.elapsed"), "format": "time"}]}
 	var error: Error = pages.present(result)
 	if error != OK:
-		api.fail("result_rejected", error_string(error))
+		_fail("result_rejected", error_string(error))
+
+func _fail(code: String, message: String) -> void:
+	party_stop(&"failed")
+	var error: Error = api.fail(code, message)
+	if error != OK:
+		push_error("Fruit Samurai cancellation failed (%s): %s; original %s: %s" % [error, error_string(error), code, message])
 
 func godot_party_graphics_targets() -> Dictionary:
-	if game == null:
-		return {}
-	if IS_PLATFORM:
-		return {"world": game.get_node("WorldEnvironment"), "sun": game.get_node("Sun")}
-	return {"world": game.get_node("Environment"), "sun": game.get_node("KeyLight")}
+	return {"world": world, "sun": sun}
+
+func godot_party_audio_target() -> PartyGameAudio:
+	return game.audio

@@ -5,8 +5,14 @@
 [ext_resource type="PackedScene" path="res://games/minigame/godot_party_default_fruit_samurai/scenes/main.tscn" id="world"]
 [ext_resource type="PackedScene" path="res://games/protocols/godot_party_default_protocol/challenge_hud.tscn" id="hud"]
 
-[node name="Game" type="Node3D" groups=["party_minimal_hud"] unique_id=1427215291]
+[node name="Game" type="Node3D" node_paths=PackedStringArray("game", "challenge_hud", "summary", "round_label", "world", "sun") groups=["party_minimal_hud"] unique_id=1427215291]
 script = ExtResource("1_rd8kc")
+game = NodePath("Gameplay")
+challenge_hud = NodePath("ChallengeHUD")
+summary = NodePath("ChallengeHUD/Status/Rankings")
+round_label = NodePath("ChallengeHUD/Status/RoundClock")
+world = NodePath("Gameplay/Environment")
+sun = NodePath("Gameplay/KeyLight")
 
 [node name="Gameplay" parent="." instance=ExtResource("world")]
 process_mode = 4

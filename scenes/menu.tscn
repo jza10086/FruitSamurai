@@ -1,0 +1,162 @@
+[gd_scene format=3]
+
+[ext_resource type="FontFile" path="res://games/minigame/godot_party_default_fruit_samurai/assets/Chinese.ttc" id="1_kon74"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ve3cf"]
+bg_color = Color(0.9137255, 0.8, 0.5294118, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3764706, 0.4745098, 0.40392157, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qooa2"]
+bg_color = Color(0.7766667, 0.68, 0.45000005, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3764706, 0.4745098, 0.40392157, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_defyw"]
+bg_color = Color(0.9275294, 0.832, 0.6047059, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3764706, 0.4745098, 0.40392157, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x0htw"]
+bg_color = Color(0.10980392, 0.22352941, 0.19215687, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3764706, 0.4745098, 0.40392157, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2c4pd"]
+bg_color = Color(0.093333334, 0.19000001, 0.16333334, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3764706, 0.4745098, 0.40392157, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_njqhu"]
+bg_color = Color(0.2522353, 0.3477647, 0.3214118, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3764706, 0.4745098, 0.40392157, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="Menu" type="Control" unique_id=1124477840]
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Eyebrow" type="Label" parent="." unique_id=1095842036]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 174.0
+offset_right = 780.0
+offset_bottom = 210.0
+theme_override_colors/font_color = Color(0.83, 0.65, 0.32, 1)
+theme_override_font_sizes/font_size = 18
+text = "出刀如风 · 果香四溢"
+
+[node name="Title" type="Label" parent="." unique_id=1069501487]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 218.0
+offset_right = 1012.0
+offset_bottom = 428.0
+theme_override_colors/font_color = Color(0.96, 0.94, 0.82, 1)
+theme_override_fonts/font = ExtResource("1_kon74")
+theme_override_font_sizes/font_size = 80
+text = "FRUIT
+SAMURAI"
+
+[node name="Subtitle" type="Label" parent="." unique_id=318451896]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 453.0
+offset_right = 800.0
+offset_bottom = 539.0
+theme_override_colors/font_color = Color(0.63, 0.77, 0.69, 1)
+theme_override_font_sizes/font_size = 24
+text = "屏息，挥刀，切开这一刻。
+用一连串利落的切击，刷新你的纪录。"
+
+[node name="Play" type="Button" parent="." unique_id=1865875052]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 585.0
+offset_right = 490.0
+offset_bottom = 659.0
+theme_override_colors/font_color = Color(0.09803922, 0.21568628, 0.17254902, 1)
+theme_override_colors/font_focus_color = Color(0.09803922, 0.21568628, 0.17254902, 1)
+theme_override_colors/font_pressed_color = Color(0.09803922, 0.21568628, 0.17254902, 1)
+theme_override_colors/font_hover_color = Color(0.09803922, 0.21568628, 0.17254902, 1)
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_ve3cf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qooa2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_defyw")
+theme_override_styles/focus = SubResource("StyleBoxFlat_defyw")
+text = "开始挑战"
+
+[node name="Instructions" type="Label" parent="." unique_id=868091889]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 698.0
+offset_right = 880.0
+offset_bottom = 798.0
+theme_override_colors/font_color = Color(0.53, 0.67, 0.6, 1)
+theme_override_font_sizes/font_size = 18
+text = "按住鼠标划动 / 手指滑动切水果，连续切中可获连击奖励。
+避开炸弹；漏掉 3 个水果，本局结束。
+按 Esc 可暂停。"
+
+[node name="ReducedMotion" type="CheckButton" parent="." unique_id=511913018]
+layout_mode = 0
+offset_left = 1170.0
+offset_top = 800.0
+offset_right = 1520.0
+offset_bottom = 850.0
+theme_override_font_sizes/font_size = 16
+text = "减弱动态效果"
+
+[node name="Version" type="Label" parent="." unique_id=857285354]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 814.0
+offset_right = 740.0
+offset_bottom = 844.0
+theme_override_colors/font_color = Color(0.45, 0.58, 0.51, 1)
+theme_override_font_sizes/font_size = 14
+text = "经典模式  /  三次漏果机会  /  一刀入魂"

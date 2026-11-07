@@ -30,3 +30,81 @@ msgstr "水果武士 · 剩余 {time} 秒{spectator}"
 
 msgid "hud.player"
 msgstr "{player}  {score} 分  {state}"
+
+msgid "hud.ready"
+msgstr "等待所有玩家准备完成"
+
+msgid "hud.spectator"
+msgstr " · 观战中"
+
+msgid "hud.withdrawn"
+msgstr "已退出"
+
+msgid "hud.completed"
+msgstr "已完成"
+
+msgid "hud.playing"
+msgstr "挑战中"
+
+msgid "hud.score"
+msgstr "得分"
+
+msgid "hud.elapsed"
+msgstr "用时"
+
+msgid "hud.best"
+msgstr "最高  {score}"
+
+msgid "hud.misses"
+msgstr "漏果"
+
+msgid "hud.pause"
+msgstr "暂停"
+
+msgid "hud.combo"
+msgstr "连斩"
+
+msgid "game.over"
+msgstr "本局\n结束"
+
+msgid "game.over_detail"
+msgstr "{reason}\n得分  {score} · {next}"
+
+msgid "game.waiting"
+msgstr "等待其他玩家完成"
+
+msgid "game.missed"
+msgstr "漏掉了三个水果，下次一定更快。"
+
+msgid "game.bomb"
+msgstr "切到了炸弹！调整节奏，再试一次。"
+
+msgid "preview.title"
+msgstr "水果\n武士"
+
+msgid "preview.subtitle"
+msgstr "屏息，挥刀，切开这一刻。\n用一连串利落的切击，刷新你的纪录。"
+
+msgid "preview.play"
+msgstr "开始挑战"
+
+msgid "preview.retry"
+msgstr "再来一局"
+
+msgid "preview.resume"
+msgstr "继续挑战"
+
+msgid "preview.paused"
+msgstr "暂停中"
+
+msgid "preview.pause_hint"
+msgstr "按 Esc 或点击继续挑战。"
+
+msgid "preview.eyebrow"
+msgstr "出刀如风 · 果香四溢"
+
+msgid "preview.instructions"
+msgstr "按住鼠标左键划动切水果，连续切中可获连击奖励。\n避开炸弹；漏掉 3 个水果，本局结束。\n预览中按 Esc 可暂停。"
+
+msgid "preview.rules"
+msgstr "经典模式  /  三次漏果机会  /  一刀入魂"
