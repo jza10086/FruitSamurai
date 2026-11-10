@@ -1,10 +1,11 @@
 {
   "manifest_version": 2,
   "core_api_major": 5,
-  "package_version": "1.0.6",
+  "package_version": "1.0.7",
   "id": "godot_party_default_fruit_samurai",
   "name": "GodotPartyDefault · 水果武士",
   "kind": "minigame",
+  "supported_systems": ["windows"],
   "introduction": "按住切割键划过水果，连续切中可获得连击奖励。避开炸弹，各自挑战，按最终切果分数排名。",
   "entry": "game.tscn",
   "player_counts": [
@@ -21,7 +22,7 @@
     "original"
   ],
   "dependencies": {
-    "godot_party_default_protocol": "1.0.6"
+    "godot_party_default_protocol": "1.0.7"
   },
   "adapters": [
     {
