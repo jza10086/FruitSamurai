@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bku842dtuirbl"
-path="res://.godot/imported/score.png-da70b75bf86fb22d1dc7ad751d8c158c.ctex"
+path="res://.godot/imported/score.png-759e31d0b08f24edcf835eeb66dda35e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://games/minigame/godot_party_default_fruit_samurai/assets/ui/wenrexa5/score.png"
-dest_files=["res://.godot/imported/score.png-da70b75bf86fb22d1dc7ad751d8c158c.ctex"]
+source_file="res://games/minigame/gp_fruit_samurai/assets/ui/wenrexa5/score.png"
+dest_files=["res://.godot/imported/score.png-759e31d0b08f24edcf835eeb66dda35e.ctex"]
 
 [params]
 

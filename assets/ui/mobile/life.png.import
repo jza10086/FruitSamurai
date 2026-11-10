@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ciie83078odvm"
-path="res://.godot/imported/life.png-dad314484e2bf217c00f2bd045001f05.ctex"
+path="res://.godot/imported/life.png-578f819b573f592038818d8e78509600.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://games/minigame/godot_party_default_fruit_samurai/assets/ui/mobile/life.png"
-dest_files=["res://.godot/imported/life.png-dad314484e2bf217c00f2bd045001f05.ctex"]
+source_file="res://games/minigame/gp_fruit_samurai/assets/ui/mobile/life.png"
+dest_files=["res://.godot/imported/life.png-578f819b573f592038818d8e78509600.ctex"]
 
 [params]
 

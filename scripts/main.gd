@@ -1,9 +1,9 @@
 extends Node3D
 ## Fruit simulation and local presentation. The entry owns networking and round lifetime.
 signal failed(code: String, message: String)
-const Hud = preload("res://games/minigame/godot_party_default_fruit_samurai/scripts/hud_skin.gd")
-const Effects = preload("res://games/minigame/godot_party_default_fruit_samurai/scripts/slice_effects.gd")
-const DEFAULT_TEXT: Translation = preload("res://games/minigame/godot_party_default_fruit_samurai/i18n/zh_Hans.po")
+const Hud = preload("res://games/minigame/gp_fruit_samurai/scripts/hud_skin.gd")
+const Effects = preload("res://games/minigame/gp_fruit_samurai/scripts/slice_effects.gd")
+const DEFAULT_TEXT: Translation = preload("res://games/minigame/gp_fruit_samurai/i18n/zh_Hans.po")
 @export var hud: Hud
 @export var audio: PartyGameAudio
 @export var slice_sound: PartyAudioCue
@@ -14,7 +14,7 @@ const DEFAULT_TEXT: Translation = preload("res://games/minigame/godot_party_defa
 var translate: Callable
 var party_input: PartyInput
 
-const Fruit = preload("res://games/minigame/godot_party_default_fruit_samurai/scripts/fruit.gd")
+const Fruit = preload("res://games/minigame/gp_fruit_samurai/scripts/fruit.gd")
 enum State { MENU, PLAYING, PAUSED, OVER }
 var state: State = State.MENU
 var score: int = 0

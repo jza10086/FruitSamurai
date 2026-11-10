@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://iwn52afb3fqw"
-path="res://.godot/imported/miss.wav-477ab61379ad4fd4b0b45e011670b753.sample"
+path="res://.godot/imported/miss.wav-477943397b47416c10d737dc4864f2e2.sample"
 
 [deps]
 
-source_file="res://games/minigame/godot_party_default_fruit_samurai/assets/audio/miss.wav"
-dest_files=["res://.godot/imported/miss.wav-477ab61379ad4fd4b0b45e011670b753.sample"]
+source_file="res://games/minigame/gp_fruit_samurai/assets/audio/miss.wav"
+dest_files=["res://.godot/imported/miss.wav-477943397b47416c10d737dc4864f2e2.sample"]
 
 [params]
 

@@ -1,15 +1,15 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://games/minigame/godot_party_default_fruit_samurai/scripts/hud_skin.gd" id="hud_script"]
+[ext_resource type="Script" path="res://games/minigame/gp_fruit_samurai/scripts/hud_skin.gd" id="hud_script"]
 
-[ext_resource type="FontFile" path="res://games/minigame/godot_party_default_fruit_samurai/assets/Chinese.ttc" id="1_g6qvq"]
-[ext_resource type="Texture2D" path="res://games/minigame/godot_party_default_fruit_samurai/assets/ui/hypercasual/best.png" id="2_4qiom"]
-[ext_resource type="Texture2D" path="res://games/minigame/godot_party_default_fruit_samurai/assets/ui/hypercasual/score.png" id="3_k2boy"]
-[ext_resource type="Texture2D" path="res://games/minigame/godot_party_default_fruit_samurai/assets/ui/hypercasual/trophy.png" id="4_tgww2"]
-[ext_resource type="Texture2D" path="res://games/minigame/godot_party_default_fruit_samurai/assets/ui/hypercasual/pause.png" id="5_xor3y"]
-[ext_resource type="Texture2D" path="res://games/minigame/godot_party_default_fruit_samurai/assets/ui/hypercasual/pause_bg.png" id="6_d5h36"]
-[ext_resource type="Texture2D" path="res://games/minigame/godot_party_default_fruit_samurai/assets/ui/hypercasual/life.png" id="7_8oiqo"]
-[ext_resource type="Texture2D" path="res://games/minigame/godot_party_default_fruit_samurai/assets/ui/hypercasual/miss.png" id="8_1j8hm"]
+[ext_resource type="FontFile" path="res://games/minigame/gp_fruit_samurai/assets/Chinese.ttc" id="1_g6qvq"]
+[ext_resource type="Texture2D" path="res://games/minigame/gp_fruit_samurai/assets/ui/hypercasual/best.png" id="2_4qiom"]
+[ext_resource type="Texture2D" path="res://games/minigame/gp_fruit_samurai/assets/ui/hypercasual/score.png" id="3_k2boy"]
+[ext_resource type="Texture2D" path="res://games/minigame/gp_fruit_samurai/assets/ui/hypercasual/trophy.png" id="4_tgww2"]
+[ext_resource type="Texture2D" path="res://games/minigame/gp_fruit_samurai/assets/ui/hypercasual/pause.png" id="5_xor3y"]
+[ext_resource type="Texture2D" path="res://games/minigame/gp_fruit_samurai/assets/ui/hypercasual/pause_bg.png" id="6_d5h36"]
+[ext_resource type="Texture2D" path="res://games/minigame/gp_fruit_samurai/assets/ui/hypercasual/life.png" id="7_8oiqo"]
+[ext_resource type="Texture2D" path="res://games/minigame/gp_fruit_samurai/assets/ui/hypercasual/miss.png" id="8_1j8hm"]
 
 [sub_resource type="Theme" id="Theme"]
 default_font = ExtResource("1_g6qvq")

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://jyixsdi3py2k"]
 
-[ext_resource type="Script" uid="uid://dcbov2tsfps3c" path="res://games/minigame/godot_party_default_fruit_samurai/game.gd" id="1_rd8kc"]
+[ext_resource type="Script" uid="uid://dcbov2tsfps3c" path="res://games/minigame/gp_fruit_samurai/game.gd" id="1_rd8kc"]
 
-[ext_resource type="PackedScene" path="res://games/minigame/godot_party_default_fruit_samurai/scenes/main.tscn" id="world"]
+[ext_resource type="PackedScene" path="res://games/minigame/gp_fruit_samurai/scenes/main.tscn" id="world"]
 [ext_resource type="PackedScene" path="res://games/protocols/godot_party_default_protocol/challenge_hud.tscn" id="hud"]
 
 [node name="Game" type="Node3D" node_paths=PackedStringArray("game", "challenge_hud", "summary", "round_label", "world", "sun") groups=["party_minimal_hud"] unique_id=1427215291]

@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://ci7g1dvfamsv0"
-path="res://.godot/imported/apple.glb-b0c5a369c68f0660bf4b8dc39889e9f6.scn"
+path="res://.godot/imported/apple.glb-cc6e02e4cfcfb47a4c0600e1a5f76912.scn"
 
 [deps]
 
-source_file="res://games/minigame/godot_party_default_fruit_samurai/assets/models/apple.glb"
-dest_files=["res://.godot/imported/apple.glb-b0c5a369c68f0660bf4b8dc39889e9f6.scn"]
+source_file="res://games/minigame/gp_fruit_samurai/assets/models/apple.glb"
+dest_files=["res://.godot/imported/apple.glb-cc6e02e4cfcfb47a4c0600e1a5f76912.scn"]
 
 [params]
 

@@ -1,12 +1,12 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://games/minigame/godot_party_default_fruit_samurai/scripts/hud_skin.gd" id="hud_script"]
+[ext_resource type="Script" path="res://games/minigame/gp_fruit_samurai/scripts/hud_skin.gd" id="hud_script"]
 
-[ext_resource type="FontFile" path="res://games/minigame/godot_party_default_fruit_samurai/assets/Chinese.ttc" id="1_vyn8p"]
-[ext_resource type="Texture2D" path="res://games/minigame/godot_party_default_fruit_samurai/assets/ui/mobile/score.png" id="2_k57la"]
-[ext_resource type="Texture2D" path="res://games/minigame/godot_party_default_fruit_samurai/assets/ui/mobile/pause.png" id="3_wdsr5"]
-[ext_resource type="Texture2D" path="res://games/minigame/godot_party_default_fruit_samurai/assets/ui/mobile/life.png" id="4_r1cty"]
-[ext_resource type="Texture2D" path="res://games/minigame/godot_party_default_fruit_samurai/assets/ui/mobile/miss.png" id="5_usiej"]
+[ext_resource type="FontFile" path="res://games/minigame/gp_fruit_samurai/assets/Chinese.ttc" id="1_vyn8p"]
+[ext_resource type="Texture2D" path="res://games/minigame/gp_fruit_samurai/assets/ui/mobile/score.png" id="2_k57la"]
+[ext_resource type="Texture2D" path="res://games/minigame/gp_fruit_samurai/assets/ui/mobile/pause.png" id="3_wdsr5"]
+[ext_resource type="Texture2D" path="res://games/minigame/gp_fruit_samurai/assets/ui/mobile/life.png" id="4_r1cty"]
+[ext_resource type="Texture2D" path="res://games/minigame/gp_fruit_samurai/assets/ui/mobile/miss.png" id="5_usiej"]
 
 [sub_resource type="Theme" id="Theme"]
 default_font = ExtResource("1_vyn8p")

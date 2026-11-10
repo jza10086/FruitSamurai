@@ -46,7 +46,7 @@ func setup(type: int, half: bool = false, second: bool = false) -> void:
 		fuse.material_override = glow
 		visual.add_child(fuse)
 		return
-	var path: String = "res://games/minigame/godot_party_default_fruit_samurai/assets/models/" + NAMES[kind] + ("-half" if half and kind < 3 else "") + ".glb"
+	var path: String = "res://games/minigame/gp_fruit_samurai/assets/models/" + NAMES[kind] + ("-half" if half and kind < 3 else "") + ".glb"
 	var model: Node3D = (load(path) as PackedScene).instantiate() as Node3D
 	var scale_factor: float = (1.5 if kind == 3 else 1.25) / SIZES[kind]
 	visual.scale = Vector3.ONE * scale_factor
@@ -77,8 +77,8 @@ func _apply_palette(node: Node3D, accumulated: Transform3D) -> void:
 	var local_transform: Transform3D = accumulated * node.transform
 	if node is MeshInstance3D:
 		var material: ShaderMaterial = ShaderMaterial.new()
-		material.shader = load("res://games/minigame/godot_party_default_fruit_samurai/scripts/fruit_palette.gdshader")
-		material.set_shader_parameter("palette", load("res://games/minigame/godot_party_default_fruit_samurai/assets/models/Textures/colormap.png"))
+		material.shader = load("res://games/minigame/gp_fruit_samurai/scripts/fruit_palette.gdshader")
+		material.set_shader_parameter("palette", load("res://games/minigame/gp_fruit_samurai/assets/models/Textures/colormap.png"))
 		material.set_shader_parameter("fruit_kind", kind)
 		material.set_shader_parameter("model_from_mesh", local_transform)
 		node.material_override = material

@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://0cluao30fv3n"
-path="res://.godot/imported/combo.wav-444f39ca5a1e506ab77a2d86906708eb.sample"
+path="res://.godot/imported/combo.wav-02e924af112efc437455ff8290b5f90c.sample"
 
 [deps]
 
-source_file="res://games/minigame/godot_party_default_fruit_samurai/assets/audio/combo.wav"
-dest_files=["res://.godot/imported/combo.wav-444f39ca5a1e506ab77a2d86906708eb.sample"]
+source_file="res://games/minigame/gp_fruit_samurai/assets/audio/combo.wav"
+dest_files=["res://.godot/imported/combo.wav-02e924af112efc437455ff8290b5f90c.sample"]
 
 [params]
 

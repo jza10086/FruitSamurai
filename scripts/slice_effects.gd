@@ -212,7 +212,7 @@ func _draw_blade() -> void:
 		draw_circle(tip.position, 2.5 * strength, Color(1.0, 1.0, 1.0, strength))
 
 func _draw_combos() -> void:
-	var font: Font = preload("res://games/minigame/godot_party_default_fruit_samurai/assets/Chinese.ttc")
+	var font: Font = preload("res://games/minigame/gp_fruit_samurai/assets/Chinese.ttc")
 	for combo: ComboLabel in _combos:
 		var progress: float = clampf(combo.age / COMBO_LIFE, 0.0, 1.0)
 		var opacity: float = clampf((1.0 - progress) / 0.32, 0.0, 1.0)

@@ -1,6 +1,6 @@
 [gd_scene format=3]
 
-[ext_resource type="FontFile" path="res://games/minigame/godot_party_default_fruit_samurai/assets/Chinese.ttc" id="1_kon74"]
+[ext_resource type="FontFile" path="res://games/minigame/gp_fruit_samurai/assets/Chinese.ttc" id="1_kon74"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ve3cf"]
 bg_color = Color(0.9137255, 0.8, 0.5294118, 1)
