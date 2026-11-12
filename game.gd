@@ -9,7 +9,7 @@ const STANDING_ROW: PackedScene = preload("res://games/protocols/godot_party_def
 @export var round_label: Label
 @export var world: WorldEnvironment
 @export var sun: DirectionalLight3D
-var pages: Pages
+@export var pages: Pages
 var api: PartyAPI
 var request: Dictionary
 var players: Array[Dictionary] = []
@@ -64,7 +64,7 @@ func _ready() -> void:
 		score_rows[player.player_id] = row
 		row.text = player.name
 	round_label.text = api.i18n.text(&"hud.ready")
-	pages = Pages.new()
+	assert(pages != null, "Assign ProtocolPages in the game scene")
 	var error: Error = pages.prepare(self, api, request, _start_gameplay)
 	if error != OK:
 		_fail("load_failed", error_string(error))

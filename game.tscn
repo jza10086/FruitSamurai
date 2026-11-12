@@ -1,11 +1,14 @@
 [gd_scene format=3 uid="uid://jyixsdi3py2k"]
 
+[ext_resource type="PackedScene" path="res://games/minigame/gp_fruit_samurai/ui/round_pages.tscn" id="protocol_pages"]
+
 [ext_resource type="Script" uid="uid://dcbov2tsfps3c" path="res://games/minigame/gp_fruit_samurai/game.gd" id="1_rd8kc"]
 
 [ext_resource type="PackedScene" path="res://games/minigame/gp_fruit_samurai/scenes/main.tscn" id="world"]
 [ext_resource type="PackedScene" path="res://games/protocols/godot_party_default_protocol/challenge_hud.tscn" id="hud"]
 
-[node name="Game" type="Node3D" node_paths=PackedStringArray("game", "challenge_hud", "summary", "round_label", "world", "sun") groups=["party_minimal_hud"] unique_id=1427215291]
+[node name="Game" type="Node3D" node_paths=PackedStringArray("pages", "game", "challenge_hud", "summary", "round_label", "world", "sun") groups=["party_minimal_hud"] unique_id=1427215291]
+pages = NodePath("ProtocolPages")
 script = ExtResource("1_rd8kc")
 game = NodePath("Gameplay")
 challenge_hud = NodePath("ChallengeHUD")
@@ -24,5 +27,9 @@ offset_top = 180.0
 
 [node name="RoundClock" parent="ChallengeHUD/Status" index="0"]
 text = "水果武士 · 剩余 90 秒"
+
+
+[node name="ProtocolPages" parent="." instance=ExtResource("protocol_pages")]
+unique_name_in_owner = true
 
 [editable path="ChallengeHUD"]
