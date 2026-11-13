@@ -1,4 +1,9 @@
 extends Node3D
+
+## Content-owned gameplay rules, independent of package compatibility.
+static func party_definition() -> Dictionary:
+	return {"player_counts": [1, 2, 3, 4, 5, 6, 7, 8], "tags": ["original"]}
+
 ## Local cutting stays responsive; this entry owns bounded host scoring and round lifetime.
 const Gameplay = preload("res://games/minigame/gp_fruit_samurai/scripts/main.gd")
 const Pages = preload("res://games/protocols/godot_party_default_protocol/round_pages.gd")

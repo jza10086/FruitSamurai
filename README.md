@@ -15,3 +15,5 @@ F6 预览使用 `scenes/main.tscn`：鼠标左键切割，Esc 暂停/继续；�
 仅支持 standard 普通排名局；不实现 resource 额度或道具效果。分数由本地模拟产生，房主校验真实发送身份、类型、有限数、范围、递增序号及重复终态；不是严格防作弊模式。
 
 移植自项目提供的 temp_game/FruitSamurai，保留 Kenney 水果、切割碎片、音效和原创 HUD。来源及许可证见 assets/ASSET_SOURCES.md、third_party/ 和项目 doc/credits.md。原型的其他 HUD 素材随来源记录保留，正式版本使用 original 皮肤。
+
+按住切割键划过水果，连续切中可获得连击奖励。避开炸弹，各自挑战，按最终切果分数排名。
