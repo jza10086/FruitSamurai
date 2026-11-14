@@ -1,5 +1,7 @@
 # Third-party assets
 
+素材文件名与未展开的相对路径以包内 `assets/`为基准。
+
 ## Kenney Food Kit 2.0
 
 - Author: **Kenney** (https://kenney.nl/)
