@@ -10,7 +10,7 @@ metadata={
 
 [deps]
 
-source_file="res://games/minigame/gp_fruit_samurai/assets/ui/hypercasual/miss.png"
+source_file="res://games/minigame/GP_fruit_samurai/assets/ui/hypercasual/miss.png"
 dest_files=["res://.godot/imported/miss.png-65cb763760dd9d8ba0b740047618cf0c.ctex"]
 
 [params]

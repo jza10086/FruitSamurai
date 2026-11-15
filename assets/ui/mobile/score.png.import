@@ -10,7 +10,7 @@ metadata={
 
 [deps]
 
-source_file="res://games/minigame/gp_fruit_samurai/assets/ui/mobile/score.png"
+source_file="res://games/minigame/GP_fruit_samurai/assets/ui/mobile/score.png"
 dest_files=["res://.godot/imported/score.png-a1d08b7ab7f80e83569cbc49dd411ec5.ctex"]
 
 [params]

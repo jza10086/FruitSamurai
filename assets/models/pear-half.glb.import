@@ -8,7 +8,7 @@ path="res://.godot/imported/pear-half.glb-843b464305578fc51c17294a7033ba9b.scn"
 
 [deps]
 
-source_file="res://games/minigame/gp_fruit_samurai/assets/models/pear-half.glb"
+source_file="res://games/minigame/GP_fruit_samurai/assets/models/pear-half.glb"
 dest_files=["res://.godot/imported/pear-half.glb-843b464305578fc51c17294a7033ba9b.scn"]
 
 [params]

@@ -7,7 +7,7 @@ path="res://.godot/imported/bomb.wav-1edee5d26658294927e595103550e4e7.sample"
 
 [deps]
 
-source_file="res://games/minigame/gp_fruit_samurai/assets/audio/bomb.wav"
+source_file="res://games/minigame/GP_fruit_samurai/assets/audio/bomb.wav"
 dest_files=["res://.godot/imported/bomb.wav-1edee5d26658294927e595103550e4e7.sample"]
 
 [params]

@@ -108,3 +108,6 @@ msgstr "按住鼠标左键划动切水果，连续切中可获连击奖励。\n�
 
 msgid "preview.rules"
 msgstr "经典模式  /  三次漏果机会  /  一刀入魂"
+
+msgid "package.name"
+msgstr "GodotPartyDefault · 水果武士"

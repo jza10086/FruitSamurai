@@ -22,5 +22,5 @@ F6 预览使用 `scenes/main.tscn`：鼠标左键切割，Esc 暂停/继续；�
 
 未带 `res://` 的源码路径以本包根目录为基准。
 
-- [Third-party assets](gp_fruit_samurai_assets_asset_sources.md)
-- [M07 水果武士　A/B　依赖 G01、G03](gp_fruit_samurai_development.md)
+- [Third-party assets](GP_fruit_samurai_assets_asset_sources.md)
+- [M07 水果武士　A/B　依赖 G01、G03](GP_fruit_samurai_development.md)

@@ -8,7 +8,7 @@ path="res://.godot/imported/orange.glb-fc697b9b03eba51080f3a3b680169721.scn"
 
 [deps]
 
-source_file="res://games/minigame/gp_fruit_samurai/assets/models/orange.glb"
+source_file="res://games/minigame/GP_fruit_samurai/assets/models/orange.glb"
 dest_files=["res://.godot/imported/orange.glb-fc697b9b03eba51080f3a3b680169721.scn"]
 
 [params]

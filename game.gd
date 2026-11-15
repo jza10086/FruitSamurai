@@ -1,9 +1,9 @@
 extends Node3D
 
 ## Local cutting stays responsive; this entry owns bounded host scoring and round lifetime.
-const Gameplay = preload("res://games/minigame/gp_fruit_samurai/scripts/main.gd")
-const Pages = preload("res://games/protocols/godot_party_default_protocol/round_pages.gd")
-const STANDING_ROW: PackedScene = preload("res://games/assets/godot_party_default_ui/standing_row.tscn")
+const Gameplay = preload("res://games/minigame/GP_fruit_samurai/scripts/main.gd")
+const Pages = preload("res://games/protocols/GP_default_protocol/round_pages.gd")
+const STANDING_ROW: PackedScene = preload("res://games/assets/GP_default_ui/standing_row.tscn")
 @export var game: Gameplay
 @export var challenge_hud: CanvasLayer
 @export var summary: VBoxContainer

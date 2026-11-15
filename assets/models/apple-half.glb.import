@@ -8,7 +8,7 @@ path="res://.godot/imported/apple-half.glb-727e527aa6e763cb4d207c4281b26d9a.scn"
 
 [deps]
 
-source_file="res://games/minigame/gp_fruit_samurai/assets/models/apple-half.glb"
+source_file="res://games/minigame/GP_fruit_samurai/assets/models/apple-half.glb"
 dest_files=["res://.godot/imported/apple-half.glb-727e527aa6e763cb4d207c4281b26d9a.scn"]
 
 [params]

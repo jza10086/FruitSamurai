@@ -10,7 +10,7 @@ metadata={
 
 [deps]
 
-source_file="res://games/minigame/gp_fruit_samurai/assets/ui/wenrexa5/pause.png"
+source_file="res://games/minigame/GP_fruit_samurai/assets/ui/wenrexa5/pause.png"
 dest_files=["res://.godot/imported/pause.png-f771f1694ad49346b41565963263c824.ctex"]
 
 [params]
