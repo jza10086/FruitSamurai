@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://c5cwhbou53qh"
-path="res://.godot/imported/lemon.glb-2354c48cb426f0418f973a0fd8163ef8.scn"
+path="res://.godot/imported/lemon.glb-471448afd09498a488ac808b3fce5317.scn"
 
 [deps]
 
 source_file="res://games/minigame/GP_fruit_samurai/assets/models/lemon.glb"
-dest_files=["res://.godot/imported/lemon.glb-2354c48cb426f0418f973a0fd8163ef8.scn"]
+dest_files=["res://.godot/imported/lemon.glb-471448afd09498a488ac808b3fce5317.scn"]
 
 [params]
 

@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://c3b353osaw24b"
-path="res://.godot/imported/Display.ttf-3466782be5c209dea666166a0686ab40.fontdata"
+path="res://.godot/imported/Display.ttf-a000bbf86797f0bfe68510f7d0a03f0a.fontdata"
 
 [deps]
 
 source_file="res://games/minigame/GP_fruit_samurai/assets/Display.ttf"
-dest_files=["res://.godot/imported/Display.ttf-3466782be5c209dea666166a0686ab40.fontdata"]
+dest_files=["res://.godot/imported/Display.ttf-a000bbf86797f0bfe68510f7d0a03f0a.fontdata"]
 
 [params]
 

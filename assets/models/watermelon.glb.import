@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cccbmvruws4jc"
-path="res://.godot/imported/watermelon.glb-0c90f08ff8af5553576f6cbea380c198.scn"
+path="res://.godot/imported/watermelon.glb-023cb9589435e9b94a11bba4746bb900.scn"
 
 [deps]
 
 source_file="res://games/minigame/GP_fruit_samurai/assets/models/watermelon.glb"
-dest_files=["res://.godot/imported/watermelon.glb-0c90f08ff8af5553576f6cbea380c198.scn"]
+dest_files=["res://.godot/imported/watermelon.glb-023cb9589435e9b94a11bba4746bb900.scn"]
 
 [params]
 

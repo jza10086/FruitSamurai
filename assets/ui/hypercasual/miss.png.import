@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dsso3yswcwp3u"
-path="res://.godot/imported/miss.png-65cb763760dd9d8ba0b740047618cf0c.ctex"
+path="res://.godot/imported/miss.png-0adb15636c53b1df7a45fedfd7cbfe95.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://games/minigame/GP_fruit_samurai/assets/ui/hypercasual/miss.png"
-dest_files=["res://.godot/imported/miss.png-65cb763760dd9d8ba0b740047618cf0c.ctex"]
+dest_files=["res://.godot/imported/miss.png-0adb15636c53b1df7a45fedfd7cbfe95.ctex"]
 
 [params]
 

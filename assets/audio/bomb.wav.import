@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bq1c7l8lartt4"
-path="res://.godot/imported/bomb.wav-1edee5d26658294927e595103550e4e7.sample"
+path="res://.godot/imported/bomb.wav-e6a57b2913c11fd2e0910ca13787d65e.sample"
 
 [deps]
 
 source_file="res://games/minigame/GP_fruit_samurai/assets/audio/bomb.wav"
-dest_files=["res://.godot/imported/bomb.wav-1edee5d26658294927e595103550e4e7.sample"]
+dest_files=["res://.godot/imported/bomb.wav-e6a57b2913c11fd2e0910ca13787d65e.sample"]
 
 [params]
 

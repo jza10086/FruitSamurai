@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bku842dtuirbl"
-path="res://.godot/imported/score.png-759e31d0b08f24edcf835eeb66dda35e.ctex"
+path="res://.godot/imported/score.png-78486e0aceb47d892eda251b10361e44.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://games/minigame/GP_fruit_samurai/assets/ui/wenrexa5/score.png"
-dest_files=["res://.godot/imported/score.png-759e31d0b08f24edcf835eeb66dda35e.ctex"]
+dest_files=["res://.godot/imported/score.png-78486e0aceb47d892eda251b10361e44.ctex"]
 
 [params]
 

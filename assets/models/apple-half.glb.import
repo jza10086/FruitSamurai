@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://beupvb14ntc6h"
-path="res://.godot/imported/apple-half.glb-727e527aa6e763cb4d207c4281b26d9a.scn"
+path="res://.godot/imported/apple-half.glb-f67cd42b7396e3c908be50927513f902.scn"
 
 [deps]
 
 source_file="res://games/minigame/GP_fruit_samurai/assets/models/apple-half.glb"
-dest_files=["res://.godot/imported/apple-half.glb-727e527aa6e763cb4d207c4281b26d9a.scn"]
+dest_files=["res://.godot/imported/apple-half.glb-f67cd42b7396e3c908be50927513f902.scn"]
 
 [params]
 

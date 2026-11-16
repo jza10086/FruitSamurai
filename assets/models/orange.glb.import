@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://d14hfrorb0imu"
-path="res://.godot/imported/orange.glb-fc697b9b03eba51080f3a3b680169721.scn"
+path="res://.godot/imported/orange.glb-f12d2a2673eb3978f7402a6954517a08.scn"
 
 [deps]
 
 source_file="res://games/minigame/GP_fruit_samurai/assets/models/orange.glb"
-dest_files=["res://.godot/imported/orange.glb-fc697b9b03eba51080f3a3b680169721.scn"]
+dest_files=["res://.godot/imported/orange.glb-f12d2a2673eb3978f7402a6954517a08.scn"]
 
 [params]
 
