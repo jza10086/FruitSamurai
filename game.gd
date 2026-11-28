@@ -3,10 +3,9 @@ extends Node3D
 ## Local cutting stays responsive; this entry owns bounded host scoring and round lifetime.
 const Gameplay = preload("res://games/minigame/GP_fruit_samurai/scripts/main.gd")
 const Pages = preload("res://games/protocols/GP_default_protocol/round_pages.gd")
-const STANDING_ROW: PackedScene = preload("res://games/assets/GP_default_ui/standing_row.tscn")
 @export var game: Gameplay
 @export var challenge_hud: CanvasLayer
-@export var summary: VBoxContainer
+@export var leaderboard: PartyMiniLeaderboard
 @export var round_label: Label
 @export var world: WorldEnvironment
 @export var sun: DirectionalLight3D
@@ -27,7 +26,6 @@ var _sent_won: bool = false
 var _published_records: Dictionary = {}
 var _display_records: Dictionary = {}
 var records: Dictionary[String, Dictionary] = {}
-var score_rows: Dictionary[String, Label] = {}
 var sequence: int = 0
 
 func party_setup(value: PartyAPI, config: Dictionary) -> void:
@@ -49,7 +47,7 @@ func party_setup(value: PartyAPI, config: Dictionary) -> void:
 	game.failed.connect(_fail)
 
 func _ready() -> void:
-	assert(game != null and challenge_hud != null and summary != null and round_label != null, "Fruit Samurai requires its gameplay and ranking HUD.")
+	assert(game != null and challenge_hud != null and leaderboard != null and round_label != null, "Fruit Samurai requires its gameplay and ranking HUD.")
 	assert(world != null and sun != null, "Fruit Samurai requires its graphics targets.")
 	if api == null:
 		push_error("请从 GodotParty 大厅启动小游戏；F6 预览使用 scenes/main.tscn。")
@@ -59,11 +57,7 @@ func _ready() -> void:
 		_fail("unsupported_request", "此小游戏仅支持 standard 普通局")
 		return
 	game.fx.reduced_motion = bool(api.config.get_own(&"reduced_motion"))
-	for player: Dictionary in players:
-		var row: Label = STANDING_ROW.instantiate()
-		summary.add_child(row)
-		score_rows[player.player_id] = row
-		row.text = player.name
+	_refresh_leaderboard()
 	round_label.text = api.i18n.text(&"hud.ready")
 	assert(pages != null, "Assign ProtocolPages in the game scene")
 	var error: Error = pages.prepare(self, api, request, _start_gameplay)
@@ -214,11 +208,36 @@ func _show_standings(value: Dictionary) -> void:
 		if not id is String or not records.has(id) or not row is Dictionary or not row.get("score") is int or row.score < 0 or not row.get("won") is bool or not row.get("done") is bool or not row.get("withdrawn") is bool:
 			return
 		_display_records[id] = row
+	_refresh_leaderboard()
+
+
+func _refresh_leaderboard() -> void:
+	var entries: Array[Dictionary] = []
 	for player: Dictionary in players:
-		var row: Dictionary = _display_records.get(player.player_id, {})
-		var state_key: StringName = &"hud.withdrawn" if row.get("withdrawn", false) else (&"hud.completed" if row.get("done", false) else &"hud.playing")
-		score_rows[player.player_id].text = api.i18n.text(&"hud.player", {"player": player.name,
-			"score": row.get("score", 0), "state": api.i18n.text(state_key)})
+		var id: String = player.player_id
+		var row: Dictionary = _display_records.get(id, {})
+		var withdrawn: bool = bool(row.get("withdrawn", not player.connected))
+		entries.append({
+			"rank": 0,
+			"name": player.name,
+			"score": int(row.get("score", 0)),
+			"color": api.get_appearance(id).get("color"),
+			"is_self": id == local_id,
+			"connected": not withdrawn,
+		})
+	entries.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+		if a.connected != b.connected:
+			return a.connected
+		return int(a.score) > int(b.score))
+	for index: int in entries.size():
+		if not entries[index].connected:
+			continue
+		var rank_value: int = 1
+		for other: Dictionary in entries:
+			if other.connected and int(other.score) > int(entries[index].score):
+				rank_value += 1
+		entries[index].rank = rank_value
+	leaderboard.set_entries(entries)
 
 func _finish() -> void:
 	running = false
